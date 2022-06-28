@@ -1,0 +1,39 @@
+footer {
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 2rem;
+  height: 100px;
+  background: var(--gray-800);
+
+  a {
+    color: var(--white);
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 50px;
+      border: 2px solid var(--white);
+      border-radius: 25rem;
+
+      &+a {
+        margin-left: .5rem;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+        filter: invert(28%) sepia(72%) saturate(5098%) hue-rotate(350deg) brightness(94%) contrast(101%);
+      }
+    }
+  }
+}

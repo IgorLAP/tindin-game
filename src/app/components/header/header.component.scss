@@ -61,16 +61,16 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 1.5rem;
   border: 3px solid var(--white);
   border-radius: 25rem;
-  height: 30px;
-  width: 30px;
+  height: 20px;
+  width: 20px;
   background: var(--gray-800);
 
   img {
-    height: 45px;
-    width: 45px;
+    height: 30px;
+    width: 30px;
     filter: invert(100%);
   }
 }
