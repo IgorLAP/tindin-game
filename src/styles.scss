@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --background: #1B1919;
+
+  --red: #FC4444;
+  --white: #FFFFFF;
+  --black: #000000;
+
+  --gray-300: #7F7F7F;
+  --gray-500: #2C2B2B;
+  --gray-800: #2D272B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+input,
+textarea,
+button {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: var(--background);
+}
+
+button {
+  cursor: pointer;
+}
+
+[disabled] {
+  opacity: .6;
+  cursor: not-allowed;
+}
