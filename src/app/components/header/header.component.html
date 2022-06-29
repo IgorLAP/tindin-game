@@ -4,7 +4,7 @@
       <img src="assets/logo/logo-tindin.svg" alt="logo">
       <img src="assets/logo/name-tindin.svg" alt="name">
     </a>
-    <form method="GET">
+    <form *ngIf="!isLogged" method="GET">
       <input type="text" placeholder="Search game here">
       <button>Search</button>
     </form>

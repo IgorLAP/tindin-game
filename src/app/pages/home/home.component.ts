@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/interfaces/Game';
 import { GameService } from 'src/app/services/game.service';
@@ -9,16 +10,18 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class HomeComponent implements OnInit {
 
+  isLogged!: boolean
   imagesBanner: { name: string, url: string }[] = [
     { name: 'placeholder0', url: 'assets/banner0.png' },
     { name: 'placeholder1', url: 'assets/banner1.png' },
     { name: 'placeholder2', url: 'assets/banner2.png' },
   ]
   actualSlide = 0;
-  widthBanner = `${this.imagesBanner.length * 100}vw`
   gamesList!: Game[]
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService, private authService: AuthService) {
+    this.isLogged = this.authService.isLogged
+  }
 
   ngOnInit(): void {
     this.gameService.listGames()
@@ -37,21 +40,4 @@ export class HomeComponent implements OnInit {
         },
       })
   }
-
-  goLeft() {
-    if (this.actualSlide === 0) {
-      this.actualSlide = this.imagesBanner.length - 1
-    } else {
-      this.actualSlide -= 1
-    }
-  }
-
-  goRight() {
-    if (this.actualSlide === this.imagesBanner.length - 1) {
-      this.actualSlide = 0
-    } else {
-      this.actualSlide += 1
-    }
-  }
-
 }

@@ -9,7 +9,7 @@ import { Game } from '../interfaces/Game';
   providedIn: 'root'
 })
 export class GameService {
-  private baseApiURL = environment.baseApiURL
+  private readonly baseApiURL = environment.baseApiURL
 
   constructor(private http: HttpClient) { }
 

@@ -1,1 +1,25 @@
-<p>signin works!</p>
+<div class="signIn">
+  <div class="signInContainer">
+    <strong>Sign In</strong>
+    <p>Insert your Account Information</p>
+    <form method="POST" (ngSubmit)="signIn()" [formGroup]="signInForm" #formDir="ngForm">
+      <div class="emailField">
+        <input type="email" formControlName="email" [class.invalidInput]="email?.invalid && email?.touched"
+          placeholder="Username or Email">
+        <div *ngIf="email?.invalid && formDir.touched" class="invalidField">
+          <p *ngIf="email?.errors?.['required']">Email is required</p>
+          <p *ngIf="email?.errors?.['email']">Email format is invalid</p>
+        </div>
+      </div>
+      <div class="passwordField">
+        <input type="password" formControlName="password" [class.invalidInput]="password?.invalid && password?.touched"
+          placeholder="Password">
+        <div *ngIf="password?.invalid && formDir.touched" class="invalidField">
+          <p *ngIf="password?.errors?.['required']">Password is required</p>
+        </div>
+      </div>
+      <button [disabled]="formDir.invalid" type="submit">Login your Account</button>
+    </form>
+    <p>No Account ? <strong>Send email fabio@tindin.com.br</strong></p>
+  </div>
+</div>
