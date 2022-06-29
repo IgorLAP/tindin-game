@@ -1,12 +1,17 @@
 header {
-  height: 100px;
   background: var(--red);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
 
-  a {
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .logo {
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -69,8 +74,79 @@ header {
   background: var(--gray-800);
 
   img {
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     filter: invert(100%);
+  }
+}
+
+
+@media screen and (max-width: 960px) {
+  header {
+
+    .container {
+      flex-direction: column;
+      height: fit-content;
+    }
+
+    .logo {
+
+      img:first-child {
+        width: 70px;
+      }
+
+      img:last-child {
+        height: 40px;
+      }
+    }
+
+    form {
+      width: 480px;
+      margin: 1rem 0;
+
+      input {
+        width: 100%;
+        height: 40px;
+        padding: 0 .5rem;
+      }
+
+      button {
+        height: 30px;
+        padding: .25rem 1rem;
+        border-radius: 25rem;
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 560px) {
+  header {
+    .logo {
+
+      img:first-child {
+        width: 50px;
+      }
+
+      img:last-child {
+        height: 25px;
+      }
+    }
+
+    form {
+      width: 280px;
+    }
+  }
+
+  .profileBtn {
+    padding: 1.2rem;
+    border: 2px solid var(--white);
+    height: 20px;
+    width: 20px;
+
+    img {
+      height: 30px;
+      width: 30px;
+    }
   }
 }
