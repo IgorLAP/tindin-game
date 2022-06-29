@@ -1,5 +1,9 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +16,12 @@ export class SigninComponent implements OnInit {
     password: new UntypedFormControl('', [Validators.required])
   })
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private toast: ToastrService,
+    private router: Router,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -26,7 +35,23 @@ export class SigninComponent implements OnInit {
   }
 
   signIn() {
-    console.log('enviou')
+    if (this.signInForm.valid) {
+      const data = {
+        email: this.email?.value,
+        password: this.password?.value,
+      }
+      this.authService.auth(data)
+        .subscribe({
+          next: (response) => {
+            this.cookieService.set('auth.token', response.token, (60 * 60 * 24), '/')
+            this.toast.success('Login succeeded', 'Welcome')
+            this.router.navigate(['/'])
+          },
+          error: (response) => {
+            this.toast.error(`${response.error.message}`, 'Invalid Login')
+          }
+        })
+    }
   }
 
 }

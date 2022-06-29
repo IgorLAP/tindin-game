@@ -47,6 +47,10 @@
       input {
         padding: 1rem;
         border: 1px solid rgb(200, 194, 194, .4);
+
+        &.invalidInput {
+          border: 1px solid var(--red);
+        }
       }
 
       button {
@@ -65,17 +69,14 @@
         font-size: .8rem;
       }
 
-      .invalidInput {
-        background: pink;
+      .invalidField {
         width: 100%;
-        padding: 0.2rem;
         margin-top: 0.5rem;
         border-radius: 0.25rem;
 
         p {
           color: red;
           text-align: start;
-          font-weight: bold;
         }
       }
     }
