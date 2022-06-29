@@ -1,22 +1,20 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.scss']
 })
-export class BannerComponent implements OnInit, AfterViewInit {
+export class BannerComponent implements OnInit {
 
   @Input() actualSlide: number = 0
   @Input() imagesBanner!: { name: string, url: string }[]
   widthBanner!: string
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.widthBanner = `${this.imagesBanner.length * 100}vw`
   }
 

@@ -1,6 +1,7 @@
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface AuthSuccessApiResponse {
@@ -16,7 +17,16 @@ interface AuthSuccessApiResponse {
 export class AuthService {
   private readonly baseApiURL = environment.baseApiURL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
+
+  get isLogged() {
+    const token = this.cookieService.get('auth.token')
+    if (!token) {
+      return false
+    } else {
+      return true
+    }
+  }
 
   auth({ email, password }: { email: string, password: string }):
     Observable<AuthSuccessApiResponse> {

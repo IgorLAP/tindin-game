@@ -1,3 +1,2 @@
-<!-- Usuário não logado -->
-<app-banner [actualSlide]="actualSlide" [imagesBanner]="imagesBanner"></app-banner>
+<app-banner *ngIf="!isLogged" [actualSlide]="actualSlide" [imagesBanner]="imagesBanner"></app-banner>
 <app-games-area [gamesList]="gamesList"></app-games-area>

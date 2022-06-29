@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/interfaces/Game';
 import { GameService } from 'src/app/services/game.service';
@@ -9,6 +10,7 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class HomeComponent implements OnInit {
 
+  isLogged!: boolean
   imagesBanner: { name: string, url: string }[] = [
     { name: 'placeholder0', url: 'assets/banner0.png' },
     { name: 'placeholder1', url: 'assets/banner1.png' },
@@ -17,7 +19,9 @@ export class HomeComponent implements OnInit {
   actualSlide = 0;
   gamesList!: Game[]
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService, private authService: AuthService) {
+    this.isLogged = this.authService.isLogged
+  }
 
   ngOnInit(): void {
     this.gameService.listGames()
