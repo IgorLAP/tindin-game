@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
     { name: 'placeholder2', url: 'assets/banner2.png' },
   ]
   actualSlide = 0;
-  widthBanner = `${this.imagesBanner.length * 100}vw`
   gamesList!: Game[]
 
   constructor(private gameService: GameService) { }
@@ -37,21 +36,4 @@ export class HomeComponent implements OnInit {
         },
       })
   }
-
-  goLeft() {
-    if (this.actualSlide === 0) {
-      this.actualSlide = this.imagesBanner.length - 1
-    } else {
-      this.actualSlide -= 1
-    }
-  }
-
-  goRight() {
-    if (this.actualSlide === this.imagesBanner.length - 1) {
-      this.actualSlide = 0
-    } else {
-      this.actualSlide += 1
-    }
-  }
-
 }

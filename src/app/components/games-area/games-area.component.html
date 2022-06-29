@@ -1,0 +1,16 @@
+<div class="gamesArea" *ngIf="gamesList; else loading">
+  <div class="gameList">
+    <a *ngFor="let game of gamesList" routerLink="/game/{{ game._id }}">
+      <div class="game">
+        <img [src]="game.photos![0] ?? '/assets/utils/placeholder-poster.png'" alt="">
+        <p class="title">{{ game.title }}</p>
+        <p class="price">{{ game.mediumPrice }}</p>
+        <span>{{ game.rating }}/10</span>
+      </div>
+    </a>
+  </div>
+  <button type="button" class="viewMore">View more games</button>
+</div>
+<ng-template #loading>
+  <p>Carregando...</p>
+</ng-template>
