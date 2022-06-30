@@ -1,0 +1,360 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 1rem;
+}
+
+.breadCrumb {
+  color: var(--white);
+  text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: .8rem;
+  margin-bottom: 2rem;
+
+  a {
+    text-decoration: none;
+
+  }
+
+  img {
+    height: 20px;
+    width: 20px;
+    filter: invert(100%);
+  }
+
+  span {
+    margin: 0 .5rem;
+  }
+}
+
+.gameDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 360px;
+
+    .poster {
+      transition: background ease-out .2s;
+    }
+
+    .poster.spotlightImage {
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, .8);
+
+      .principalImg {
+        cursor: default;
+        height: 80vh;
+        width: 80vw;
+      }
+    }
+
+    .hideBtn {
+      display: none;
+    }
+
+    .closeBtn {
+      position: absolute;
+      right: 65px;
+      top: 15px;
+      font-weight: bold;
+      font-size: 2.5rem;
+      border-radius: 2.25rem;
+      cursor: pointer;
+      color: var(--gray-300);
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        filter: brightness(.8);
+      }
+    }
+
+    .principalImg {
+      cursor: pointer;
+      width: 100%;
+      height: 580px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+  }
+
+  .slider {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 135px;
+    overflow-x: hidden;
+    margin: 1rem;
+    position: relative;
+    padding: 0 1.3rem;
+
+    .slide {
+      &+.slide {
+        margin-left: 1rem;
+      }
+    }
+
+    .slideImg {
+      cursor: pointer;
+      height: 120px;
+      width: 120px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
+
+.arrows {
+  color: var(--red);
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 99;
+  top: 45px;
+  left: 0;
+  right: 0;
+
+  .leftArrow,
+  .rightArrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--white);
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    img {
+      width: 20px;
+      height: 20px;
+      filter: invert(28%) sepia(72%) saturate(5098%) hue-rotate(350deg) brightness(94%) contrast(101%);
+    }
+  }
+}
+
+.infos {
+  height: 580px;
+  flex: 1;
+  align-self: flex-start;
+  margin-left: 3.5rem;
+
+  .group {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--white);
+
+    &+.group {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.headLine {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  color: var(--white);
+
+  div {
+    display: flex;
+
+    .rating {
+      margin: auto;
+      padding: .3rem 1rem;
+      border-radius: .25rem;
+      background: var(--red);
+    }
+
+    .title {
+      font-weight: 400;
+      display: inline-block;
+      margin-left: 0.8rem;
+    }
+  }
+
+  .resume {
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+}
+
+.moreDetails {
+
+  .category {
+    &+.category {
+      margin-top: 1rem;
+    }
+  }
+
+  .type,
+  .data {
+    display: inline;
+  }
+
+  .type {
+    color: var(--white);
+    font-weight: bold;
+    font-weight: bold;
+  }
+
+  .data {
+    color: var(--gray-300);
+  }
+}
+
+.priceArea {
+
+  .mediumPrice {
+    display: inline;
+  }
+
+  .mediumPrice {
+    color: var(--gray-300);
+    font-size: 1.3rem;
+  }
+
+  .mediumValue {
+    display: inline-block;
+    color: var(--red);
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+  }
+
+  .releaseDate {
+    margin-top: 1rem;
+    color: var(--gray-300);
+    font-size: .65rem;
+  }
+
+  button {
+    border: 0;
+    color: var(--white);
+    background: var(--red);
+    text-transform: uppercase;
+    padding: .7rem 2rem;
+    margin-top: 1.5rem;
+    font-weight: 700;
+    letter-spacing: .1rem;
+    transition: filter ease .2s;
+
+    &:hover {
+      filter: brightness(.9);
+    }
+  }
+}
+
+.votingArea {
+  display: flex;
+  align-items: center;
+}
+
+.custom-select {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 1.4rem;
+  margin-left: 1rem;
+
+  select {
+    width: 280px;
+    padding: .5rem;
+    appearance: none;
+    font-weight: 700;
+    background: var(--gray-700);
+    border: 3px solid var(--red);
+    color: var(--white);
+
+    option {
+      font-weight: 700;
+    }
+  }
+
+  .down {
+    margin-left: -45px;
+    filter: invert(28%) sepia(72%) saturate(5098%) hue-rotate(350deg) brightness(94%) contrast(101%);
+  }
+}
+
+
+h2 {
+  color: var(--red);
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.description {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  margin: 1rem 0;
+  line-height: 2rem;
+  color: var(--gray-300);
+  background: var(--gray-700);
+}
+
+@media screen and (max-width: 980px) {
+  .gameDetails {
+    flex-direction: column-reverse;
+
+    .images {
+      width: unset;
+
+      .principalImg {
+        height: 380px;
+      }
+
+      .closeBtn {
+        right: 30px;
+        top: 35px;
+      }
+    }
+
+  }
+
+  .infos {
+    align-self: unset;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+
+  .votingArea {
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .gameDetails {
+    .images {
+      .closeBtn {
+        right: 10px;
+        top: 15px;
+      }
+    }
+  }
+}
