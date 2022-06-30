@@ -1,0 +1,53 @@
+.loggedUserArea {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+
+  h1,
+  p,
+  input,
+  button {
+    color: var(--white);
+  }
+
+  input {
+    padding: .6rem 0;
+    padding-left: 1rem;
+    outline: 0;
+    border: 2px solid var(--red);
+    background: transparent;
+
+    &::placeholder {
+      color: var(--white);
+      font-size: .9rem;
+      text-align: justify;
+    }
+  }
+
+  button {
+    border: 0;
+    background: var(--red);
+    text-transform: uppercase;
+    padding: .7rem 2rem;
+    margin-left: .5rem;
+    font-weight: 300;
+    transition: filter ease .2s;
+
+    &:hover {
+      filter: brightness(.9);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .loggedUserArea {
+    flex-direction: column;
+  }
+
+  .actions {
+    margin-top: 2rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-banner',
@@ -9,16 +9,16 @@ export class BannerComponent implements OnInit {
 
   @Input() actualSlide: number = 0
   @Input() imagesBanner!: { name: string, url: string }[]
+  @ViewChild('imgBanner') imgBanner!: ElementRef
   widthBanner!: string
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit(): void {
     this.widthBanner = `${this.imagesBanner.length * 100}vw`
   }
 
-  goLeft() {
+  handleGoLeft() {
     if (this.actualSlide === 0) {
       this.actualSlide = this.imagesBanner.length - 1
     } else {
@@ -26,7 +26,7 @@ export class BannerComponent implements OnInit {
     }
   }
 
-  goRight() {
+  handleGoRight() {
     if (this.actualSlide === this.imagesBanner.length - 1) {
       this.actualSlide = 0
     } else {
