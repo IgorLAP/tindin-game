@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, DoCheck {
 
   isLogged!: boolean;
 
@@ -14,6 +14,13 @@ export class HeaderComponent implements OnInit {
     this.isLogged = this.authService.isLogged
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
 
+  }
+
+  ngDoCheck(): void {
+    if (this.isLogged !== this.authService.isLogged) {
+      this.isLogged = this.authService.isLogged
+    }
+  }
 }

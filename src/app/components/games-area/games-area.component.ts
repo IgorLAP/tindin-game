@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Game } from 'src/app/interfaces/Game';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { FormattedGame } from 'src/app/interfaces/Game';
 
 @Component({
   selector: 'app-games-area',
@@ -8,11 +8,25 @@ import { Game } from 'src/app/interfaces/Game';
 })
 export class GamesAreaComponent implements OnInit {
 
-  @Input() gamesList!: Game[]
+  @Input() gamesList!: FormattedGame[]
+  @Input() searchList!: FormattedGame[] | [] | null
+  @Input() disableBtn!: boolean
+  @Output() viewMoreGames = new EventEmitter()
+  paginationDetails = {
+    perPage: 4,
+    page: 1
+  }
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  handleMoreGames() {
+    if (!this.disableBtn) {
+      this.paginationDetails.page++
+      this.viewMoreGames.emit(this.paginationDetails)
+    }
   }
 
 }

@@ -1,16 +1,31 @@
-<div class="gamesArea" *ngIf="gamesList; else loading">
-  <div class="gameList">
+<div class="gamesArea" *ngIf="!searchList || searchList == null">
+  <div class="gameList" *ngIf="gamesList">
     <a *ngFor="let game of gamesList" routerLink="/game/{{ game._id }}">
       <div class="game">
-        <img [src]="game.photos![0] ?? '/assets/utils/placeholder-poster.png'" alt="">
+        <img [src]="game.photos" alt="">
         <p class="title">{{ game.title }}</p>
         <p class="price">{{ game.mediumPrice }}</p>
         <span>{{ game.rating }}/10</span>
       </div>
     </a>
   </div>
-  <button type="button" class="viewMore">View more games</button>
+  <button [disabled]="disableBtn" (click)="handleMoreGames()" type="button" class="viewMore">View more games</button>
 </div>
-<ng-template #loading>
-  <p>Carregando...</p>
-</ng-template>
+<div class="gamesArea" *ngIf="searchList">
+  <div *ngIf="searchList.length > 0" class="gameList">
+    <a *ngFor="let searchGame of searchList" routerLink="/game/{{ searchGame._id }}">
+      <div class="game">
+        <img [src]="searchGame.photos" alt="">
+        <p class="title">{{ searchGame.title }}</p>
+        <p class="price">{{ searchGame.mediumPrice }}</p>
+        <span>{{ searchGame.rating }}/10</span>
+      </div>
+    </a>
+  </div>
+  <div *ngIf="searchList.length === 0">
+    <p style="color: white;">No matches on this search...</p>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="pacman" [fullScreen]="true">
+  <p style="color: white;">Loading...</p>
+</ngx-spinner>
