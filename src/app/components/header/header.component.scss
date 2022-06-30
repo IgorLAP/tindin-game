@@ -63,6 +63,7 @@ header {
 }
 
 .profileBtn {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,7 +75,7 @@ header {
   background: var(--gray-800);
   margin-top: 1rem;
 
-  img {
+  .profileIcon {
     height: 35px;
     width: 35px;
     filter: invert(100%);
