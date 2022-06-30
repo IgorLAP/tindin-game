@@ -1,6 +1,6 @@
 type Genre = 'Fight' | 'Sports' | 'Survival' | 'Horror' | 'RPG' | 'Fps' | 'Tps' | 'Platform' | 'Adventure' | 'Action' | 'Minigame' | 'Racing' | 'Strategy' | 'Musical' | 'Dance' | 'Simulator';
 
-type Plataform = 'PS' | 'PS2' | 'PS3' | 'PS4' | 'PS5' | 'PSP' | 'XBOX' | 'XBOX 360' | 'XBOX ONE' | 'XBOX SERIES S' | 'XBOX' | 'SERIES X' | 'SUPER NINTENDO' | 'NINTENDO 64' | 'NINTENDO SWITCH' | 'NINTENDO WII' | 'NINTENDO DS' | 'NINTENDO 3DS' | 'MEGA DRIVE' | 'PC' | 'MOBILE'
+type Platform = 'PS' | 'PS2' | 'PS3' | 'PS4' | 'PS5' | 'PSP' | 'XBOX' | 'XBOX 360' | 'XBOX ONE' | 'XBOX SERIES S' | 'XBOX' | 'SERIES X' | 'SUPER NINTENDO' | 'NINTENDO 64' | 'NINTENDO SWITCH' | 'NINTENDO WII' | 'NINTENDO DS' | 'NINTENDO 3DS' | 'MEGA DRIVE' | 'PC' | 'MOBILE'
 
 export interface Game {
   _id: string;
@@ -22,15 +22,6 @@ export interface Game {
   mediumPrice?: number;
   releaseYear?: number;
   genres?: Genre[];
-  plataforms?: Plataform[];
+  platforms?: Platform[];
   tags?: string[];
-}
-
-export type NewGame = Omit<Game, '_id' | 'rating' | 'totalVotes'>
-
-type OmitterFields = Omit<Game, 'photos' | 'mediumPrice'>
-
-export interface FormattedGame extends OmitterFields {
-  photos: string | undefined;
-  mediumPrice: string;
 }

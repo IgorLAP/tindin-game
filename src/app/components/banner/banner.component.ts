@@ -1,21 +1,28 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { takeWhile, timer } from 'rxjs';
 
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.scss']
 })
-export class BannerComponent implements OnInit {
+export class BannerComponent implements OnInit, OnDestroy {
 
   @Input() actualSlide: number = 0
   @Input() imagesBanner!: { name: string, url: string }[]
   @ViewChild('imgBanner') imgBanner!: ElementRef
-  widthBanner!: string
+  aliveComponent = true;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.widthBanner = `${this.imagesBanner.length * 100}vw`
+    timer(0, 5000)
+      .pipe(takeWhile(() => this.aliveComponent))
+      .subscribe(() => this.handleGoRight())
+  }
+
+  ngOnDestroy(): void {
+    this.aliveComponent = false
   }
 
   handleGoLeft() {

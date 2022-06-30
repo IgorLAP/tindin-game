@@ -1,1 +1,89 @@
-<p>game works!</p>
+<div class="container" *ngIf="game">
+  <div class="breadCrumb">
+    <a routerLink="/">
+      <img src="assets/utils/home.svg" alt="">
+    </a>
+    <span>|</span>
+    <p>{{ game.title }}</p>
+  </div>
+  <div class="gameDetails">
+    <div class="images">
+      <div [class.spotlightImage]="inSpotlight" class="poster">
+        <img class="principalImg" #imgSpotlight (click)="putOnSpotlight()" [src]="game.photos[0].url"
+          alt="game.photos[0].name">
+        <div class="hideBtn" [class.closeBtn]="inSpotlight" (click)="inSpotlight = false">X</div>
+      </div>
+      <div *ngIf="game.photos.length > 1" class="slider">
+        <div (click)="slideImages(image.url)" class="slide" *ngFor=" let image of game.photos">
+          <img class="slideImg" [src]="image.url" alt="">
+        </div>
+        <div class="arrows">
+          <div class="leftArrow">
+            <img src="assets/utils/left-arrow.svg" alt="">
+          </div>
+          <div class="rightArrow">
+            <img src="assets/utils/right-arrow.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="infos">
+      <div class="headLine group">
+        <div>
+          <p class="rating">{{ game.rating }}/10</p>
+          <h1 class="title">{{ game.title }}</h1>
+        </div>
+        <span class="resume">{{ game.resume }}</span>
+      </div>
+      <div class="moreDetails group">
+        <div class="category">
+          <p class="type">Genres: </p>
+          <p class="data" *ngFor="let genre of game.genres">{{ genre }}, </p>
+        </div>
+        <div class="category">
+          <p class="type">Total votes: </p>
+          <p class="data">{{ game.totalVotes }}</p>
+        </div>
+        <div class="category">
+          <p class="type">Platforms: </p>
+          <p class="data" *ngFor="let platform of game.platforms">{{ platform }}</p>
+        </div>
+        <div class="category">
+          <p class="type">Tags </p>
+          <p class="data" *ngFor="let tag of game.tags">#{{ tag }} </p>
+        </div>
+      </div>
+      <div class="priceArea group">
+        <p class="mediumPrice">Medium Price</p>
+        <p class="mediumValue">{{ game.mediumPrice | currency }}</p>
+        <p class="releaseDate">Release date: <time>{{ game.launchDate }}</time></p>
+        <div class="votingArea">
+          <button (click)="voteNow()" type="button">Vote Now</button>
+          <div class="custom-select">
+            <select #selectVote name="voting" id="voting">
+              <option value="">Vote now</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <img class="down" src="/assets/utils/down.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2>Description</h2>
+  <div class="description">
+    <p>{{ game.description }}</p>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="pacman" [fullScreen]="true">
+  <p style="color: white;">Loading...</p>
+</ngx-spinner>

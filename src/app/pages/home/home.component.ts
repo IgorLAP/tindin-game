@@ -1,9 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 
 import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter';
-import { FormattedGame } from 'src/app/interfaces/Game';
+import { Game } from 'src/app/interfaces/Game';
 import { AuthService } from 'src/app/services/auth.service';
 import { GameService } from 'src/app/services/game.service';
 
@@ -15,41 +16,54 @@ import { GameService } from 'src/app/services/game.service';
 export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
 
   @ViewChild('searchInput') searchInput!: ElementRef
-  searchList!: FormattedGame[] | [] | null
+  searchList!: Game[] | [] | null
   isLogged!: boolean
   imagesBanner: { name: string, url: string }[] = [
     { name: 'placeholder0', url: 'assets/banner0.png' }
   ]
   actualSlide = 0
-  gamesList!: FormattedGame[]
-  disableBtn = false
+  gamesList!: Game[]
+  moreGames = false
 
   constructor(
     private gameService: GameService,
     private authService: AuthService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toast: ToastrService
   ) {
     this.isLogged = this.authService.isLogged
   }
 
   ngOnInit(): void {
+    this.spinner.show()
     this.gameService.listGames({})
       .subscribe({
         next: (value) => {
+          this.spinner.hide()
           this.gamesList = value.games.map(game => gameExhibitionFormatter(game))
         },
+        error: (err) => {
+          this.spinner.hide()
+          console.log(err)
+          this.toast.error(err.errors.message, 'Something went wrong')
+        }
       })
 
     this.gameService.listGames({
       paginationDetails: { page: 0, perPage: 0 },
       highlight: true
-    }).subscribe(response => {
-      response.games.map(game => {
-        this.imagesBanner.push({
-          name: game.title,
-          url: game.photos[0].url
+    }).subscribe({
+      next: (response) => {
+        response.games.map(game => {
+          this.imagesBanner.push({
+            name: game.title,
+            url: game.photos[0].url
+          })
         })
-      })
+      },
+      error: (err) => {
+        this.toast.error(err.errors.message, 'Problem with banner images')
+      }
     })
   }
 
@@ -90,8 +104,8 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
           return this.gamesList.push(game)
         })
         if (this.gamesList.length === response.totalSize) {
-          if (!this.disableBtn) {
-            this.disableBtn = true
+          if (!this.moreGames) {
+            this.moreGames = true
           }
         }
         this.spinner.hide()
