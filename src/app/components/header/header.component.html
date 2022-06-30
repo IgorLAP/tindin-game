@@ -8,8 +8,11 @@
       <input type="text" placeholder="Search game here">
       <button>Search</button>
     </form>
-    <a routerLink="/login" class="profileBtn">
-      <img src="assets/utils/person.svg" alt="profile">
+    <a *ngIf="!isLogged" routerLink="/login" class="profileBtn">
+      <img class="profileIcon" src="assets/utils/person.svg" alt="profile">
+    </a>
+    <a *ngIf="isLogged" (click)="logout()" class="profileBtn">
+      <img class="profileIcon" src="assets/utils/logout.svg" alt="profile">
     </a>
   </div>
 </header>

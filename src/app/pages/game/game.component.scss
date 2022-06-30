@@ -65,6 +65,7 @@
         cursor: default;
         height: 80vh;
         width: 80vw;
+        pointer-events: none;
       }
     }
 
@@ -98,6 +99,10 @@
       height: 580px;
       object-fit: cover;
       object-position: center;
+
+      &:hover {
+        filter: brightness(.7);
+      }
     }
 
   }
@@ -125,6 +130,10 @@
       width: 120px;
       object-fit: cover;
       object-position: center;
+
+      &:hover {
+        filter: brightness(.7);
+      }
     }
   }
 }
