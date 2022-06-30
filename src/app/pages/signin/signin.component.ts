@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from "ngx-spinner";
+
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,17 +13,26 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+
   signInForm: UntypedFormGroup = new UntypedFormGroup({
     email: new UntypedFormControl('', [Validators.required, Validators.email]),
     password: new UntypedFormControl('', [Validators.required])
   })
+  isLogged!: boolean
+
 
   constructor(
     private authService: AuthService,
     private toast: ToastrService,
     private router: Router,
-    private cookieService: CookieService
-  ) { }
+    private cookieService: CookieService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.isLogged = this.authService.isLogged
+    if (this.isLogged) {
+      this.router.navigate(['/'])
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -36,6 +47,7 @@ export class SigninComponent implements OnInit {
 
   signIn() {
     if (this.signInForm.valid) {
+      this.spinner.show()
       const data = {
         email: this.email?.value,
         password: this.password?.value,
@@ -43,11 +55,13 @@ export class SigninComponent implements OnInit {
       this.authService.auth(data)
         .subscribe({
           next: (response) => {
+            this.spinner.hide()
             this.cookieService.set('auth.token', response.token, (60 * 60 * 24), '/')
             this.toast.success('Login succeeded', 'Welcome')
             this.router.navigate(['/'])
           },
           error: (response) => {
+            this.spinner.hide()
             this.toast.error(`${response.error.message}`, 'Invalid Login')
           }
         })
