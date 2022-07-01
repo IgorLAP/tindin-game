@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Genre } from 'src/app/interfaces/Genre';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { GameService } from 'src/app/services/game.service';
 import { Platform } from './../../interfaces/Platform';
@@ -23,6 +24,7 @@ interface MediaTypes {
 export class NewGameComponent implements OnInit {
 
   @ViewChild('tagInput') tagInput!: ElementRef
+  isLogged!: boolean
   title = ''
   resume = ''
   genres = {
@@ -79,8 +81,12 @@ export class NewGameComponent implements OnInit {
     private domSanitazer: DomSanitizer,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private toast: ToastrService
-  ) { }
+    private toast: ToastrService,
+    private authService: AuthService
+  ) {
+    this.isLogged = this.authService.isLogged
+    if (!this.isLogged) this.router.navigate(['/'])
+  }
 
   ngOnInit(): void {
   }
@@ -131,13 +137,11 @@ export class NewGameComponent implements OnInit {
     this.gameService.insertGame(newGame)
       .subscribe({
         next: (response) => {
-          console.log(response)
           this.spinner.hide()
           this.toast.show(`Successfully created`, 'Created')
           this.router.navigate(['/'])
         },
         error: (err) => {
-          console.log(err)
           this.spinner.hide()
           this.toast.error(err.error.message, 'Something went wrong')
         }

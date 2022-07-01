@@ -33,13 +33,42 @@ app-bread-crumb {
   }
 }
 
+.actionBtn {
+  border: 0;
+  background: transparent;
+
+  &:hover {
+    filter: brightness(.9);
+  }
+}
+
+.deleteIcon,
+.updateIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 1.5rem;
+  display: block;
+  padding: 0.2rem;
+}
+
+.deleteIcon {
+  background: var(--red);
+}
+
 .headLine {
   display: flex;
-  flex-direction: column;
   align-items: start;
+  justify-content: space-between;
   color: var(--white);
 
-  div {
+  .presentation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+
+  .ratingAndTitle {
     display: flex;
 
     .rating {
@@ -110,7 +139,7 @@ app-bread-crumb {
     font-size: .65rem;
   }
 
-  button {
+  .voteNow {
     border: 0;
     color: var(--white);
     background: var(--red);

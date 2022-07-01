@@ -4,11 +4,18 @@
     <app-img-spotlight [sliderUrls]="sliderUrls" [game]="game"></app-img-spotlight>
     <div class="infos">
       <div class="headLine group">
-        <div>
-          <p class="rating">{{ game.rating }}/10</p>
-          <h1 class="title">{{ game.title }}</h1>
+        <div class="presentation">
+          <div class="ratingAndTitle">
+            <p class="rating">{{ game.rating }}/10</p>
+            <h1 class="title">{{ game.title }}</h1>
+          </div>
+          <span class="resume">{{ game.resume }}</span>
         </div>
-        <span class="resume">{{ game.resume }}</span>
+        <div *ngIf="isLogged" class="adminActions">
+          <button class="actionBtn">
+            <img (click)="handleDeleteGame(game._id)" src="assets/utils/trash.svg" class="deleteIcon" alt="delete">
+          </button>
+        </div>
       </div>
       <div class="moreDetails group">
         <div class="category">
@@ -35,7 +42,7 @@
         <p class="mediumValue">{{ game.mediumPrice | currency }}</p>
         <p class="releaseDate">Release year: <time>{{ game.releaseYear }}</time></p>
         <div class="votingArea">
-          <button (click)="voteNow()" type="button">Vote Now</button>
+          <button class="voteNow" (click)="voteNow()" type="button">Vote Now</button>
           <div class="custom-select">
             <select #selectVote name="voting" id="voting">
               <option value="">Vote now</option>

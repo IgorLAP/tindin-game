@@ -55,6 +55,13 @@ export class GameService {
       )
   }
 
+  deleteGame(gameId: string): Observable<Game> {
+    let token = this.cookie.get('auth.token')
+    let headers = new HttpHeaders()
+      .set('x-api-key', token)
+    return this.http.delete<Game>(`${this.baseApiURL}games/${gameId}`, { headers })
+  }
+
   searchGame(query: string): Observable<Game[] | []> {
     return this.http.get<ListGamesApiResponse>(`${this.baseApiURL}games`)
       .pipe(

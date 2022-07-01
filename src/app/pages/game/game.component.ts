@@ -7,6 +7,7 @@ import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter
 
 import { Game } from 'src/app/interfaces/Game';
 import { GameService } from 'src/app/services/game.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-game',
@@ -16,6 +17,7 @@ import { GameService } from 'src/app/services/game.service';
 export class GameComponent implements OnInit {
 
   @ViewChild('selectVote', { static: false }) selectVote!: ElementRef
+  isLogged!: boolean
   game!: Game
   sliderUrls: SafeResourceUrl[] = []
 
@@ -25,9 +27,11 @@ export class GameComponent implements OnInit {
     private toast: ToastrService,
     private route: Router,
     private spinner: NgxSpinnerService,
-    private cdr: ChangeDetectorRef,
-    private domSanitazer: DomSanitizer
-  ) { }
+    private domSanitazer: DomSanitizer,
+    private authService: AuthService
+  ) {
+    this.isLogged = this.authService.isLogged
+  }
 
   ngOnInit(): void {
     const id = this.activedRoute.snapshot.params['id']
@@ -37,9 +41,14 @@ export class GameComponent implements OnInit {
           const formattedGame = gameExhibitionFormatter(response)
           this.game = formattedGame
           formattedGame.photos.map(photo => this.sliderUrls.push(photo.url))
-          formattedGame.videos.map(video =>
-            this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(video.url))
-          )
+          formattedGame.videos.map(video => {
+            if (video.url.includes('watch')) {
+              const embedUrl = video.url.replace('watch?v=', 'embed/')
+              this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(embedUrl))
+            } else {
+              this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(video.url))
+            }
+          })
         },
         error: (err) => {
           this.toast.error(err.error.message, 'Something went wrong')
@@ -71,6 +80,34 @@ export class GameComponent implements OnInit {
             }
           })
       }
+    }
+  }
+
+  handleDeleteGame(gameId: string) {
+    if (confirm(`Delete game ${this.game.title}?`)) {
+      this.spinner.show()
+      this.gameService.deleteGame(gameId)
+        .subscribe({
+          next: (response) => {
+            this.spinner.hide()
+            this.toast.show('Successfully deleted', 'Deleted')
+            this.route.navigate(['/'])
+          },
+          error: (err) => {
+            this.spinner.hide()
+            if (err.error.statusCode == 401) {
+              this.toast.error(`${err.error.message}`, "You don't have persmission")
+            }
+
+            if (err.error.statusCode == 412) {
+              this.toast.error(`${err.error.message}`, "Game not found")
+            }
+
+            if (err.status == 500) {
+              this.toast.error('Internal Server Error', "Something went wrong")
+            }
+          }
+        })
     }
   }
 
