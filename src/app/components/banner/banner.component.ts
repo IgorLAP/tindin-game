@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { takeWhile, timer } from 'rxjs';
 
 @Component({
@@ -10,10 +10,10 @@ export class BannerComponent implements OnInit, OnDestroy {
 
   @Input() actualSlide: number = 0
   @Input() imagesBanner!: { name: string, url: string }[]
-  @ViewChild('imgBanner') imgBanner!: ElementRef
   aliveComponent = true;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     timer(0, 5000)

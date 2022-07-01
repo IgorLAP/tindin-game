@@ -9,7 +9,7 @@
   h1,
   p,
   input,
-  button {
+  a {
     color: var(--white);
   }
 
@@ -27,13 +27,14 @@
     }
   }
 
-  button {
+  a {
     border: 0;
+    text-decoration: none;
     background: var(--red);
     text-transform: uppercase;
     padding: .7rem 2rem;
     margin-left: .5rem;
-    font-weight: 300;
+    font-weight: 400;
     transition: filter ease .2s;
 
     &:hover {

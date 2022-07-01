@@ -6,7 +6,7 @@
   </div>
   <div class="actions">
     <input type="text" #searchInput placeholder="Search from...">
-    <button type="button">New Game</button>
+    <a routerLink="/new-game">New Game</a>
   </div>
 </div>
 <app-games-area [moreGames]="moreGames" (viewMoreGames)="onViewMoreGames($event)" [searchList]="searchList"

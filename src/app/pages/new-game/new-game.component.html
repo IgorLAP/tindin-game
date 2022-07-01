@@ -1,1 +1,201 @@
-<p>new-game works!</p>
+<div class="container">
+  <app-bread-crumb [gameTitle]="title"></app-bread-crumb>
+  <div class="handle">
+    <app-img-spotlight [sliderUrls]="sliderUrls" (newMedia)="handleNewMedia($event)" [newGame]="true">
+    </app-img-spotlight>
+    <form #newGame="ngForm">
+      <input placeholder="Enter game title" type="text" name="title" [(ngModel)]="title">
+      <input placeholder="Enter resume game here" type="text" name="resume" [(ngModel)]="resume">
+      <div class="field">
+        <label for="mediumPrice">Medium Price: </label>
+        <input placeholder="Enter medium price" type="number" name="mediumPrice" [(ngModel)]="mediumPrice">
+      </div>
+      <div class="field">
+        <label for="releaseYear">Release Year: </label>
+        <input placeholder="Enter release year" type="number" name="releaseYear" [(ngModel)]="releaseYear">
+      </div>
+      <div class="field">
+        <label for="tags">Tags: </label>
+        <div class="tagContainer">
+          <input #tagInput (keydown.enter)="keyPress(tagInput.value)" placeholder="Type this game tags" type="text">
+          <div class="savedTags" *ngIf="tags.length > 0">
+            <p (click)="removeTag(item)" class="tag" *ngFor="let item of tags">{{ item }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="field checkbox-field">
+        <label for="highlight">Highlight: </label>
+        <input type="checkbox" name="highlight" value="highlight" [(ngModel)]="highlight" />
+      </div>
+      <div class="field">
+        <label for="description">Description: </label>
+        <textarea placeholder="Enter description game" name="description" [(ngModel)]="description" cols="30"
+          rows="10"></textarea>
+      </div>
+      <div class="checkbox-area">
+        <div class="head">
+          <p>Genres: </p>
+        </div>
+        <div class="markerArea">
+          <div class="input-area">
+            <div class="checkbox-field">
+              <input type="checkbox" name="Fight" value="Fight" [(ngModel)]="genres.Fight" />
+              <span>Fight</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Sports" value="Sports" [(ngModel)]="genres.Sports" />
+              <span>Sports</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Survival" value="Survival" [(ngModel)]="genres.Survival" />
+              <span>Survival</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Horror" value="Horror" [(ngModel)]="genres.Horror" />
+              <span>Horror</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="RPG" value="RPG" [(ngModel)]="genres.RPG" />
+              <span>RPG</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Fps" value="Fps" [(ngModel)]="genres.Fps" />
+              <span>Fps</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Platform" value="Platform" [(ngModel)]="genres.Platform" />
+              <span>Platform</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Adventure" value="Adventure" [(ngModel)]="genres.Adventure" />
+              <span>Adventure</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Action" value="Action" [(ngModel)]="genres.Action" />
+              <span>Action</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Minigame" value="Minigame" [(ngModel)]="genres.Minigame" />
+              <span>Minigame</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Racing" value="Racing" [(ngModel)]="genres.Racing" />
+              <span>Racing</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Strategy" value="Strategy" [(ngModel)]="genres.Strategy" />
+              <span>Strategy</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Musical" value="Musical" [(ngModel)]="genres.Musical" />
+              <span>Musical</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Dance" value="Dance" [(ngModel)]="genres.Dance" />
+              <span>Dance</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="Simulator" value="Simulator" [(ngModel)]="genres.Simulator" />
+              <span>Simulator</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="checkbox-area">
+        <div class="head">
+          <p>Platforms: </p>
+        </div>
+        <div class="markerArea">
+          <div class="input-area">
+            <div class="checkbox-field">
+              <input type="checkbox" name="PS" value="PS" [(ngModel)]="platforms.PS" />
+              <span>PS</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="PS2" value="PS2" [(ngModel)]="platforms.PS2" />
+              <span>PS2</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="PS3" value="PS3" [(ngModel)]="platforms.PS3" />
+              <span>PS3</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="PS4" value="PS4" [(ngModel)]="platforms.PS4" />
+              <span>PS4</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="PS5" value="PS5" [(ngModel)]="platforms.PS5" />
+              <span>PS5</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="PSP" value="PSP" [(ngModel)]="platforms.PSP" />
+              <span>PSP</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="XBOX" value="XBOX" [(ngModel)]="platforms.XBOX" />
+              <span>XBOX</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="XBOX_360" value="XBOX_360" [(ngModel)]="platforms.XBOX_360" />
+              <span>XBOX 360</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="XBOX_ONE" value="XBOX_ONE" [(ngModel)]="platforms.XBOX_ONE" />
+              <span>XBOX ONE</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="XBOX_SERIES_S" value="XBOX_SERIES_S" [(ngModel)]="platforms.XBOX_SERIES_S" />
+              <span>XBOX SERIES S</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="SERIES_X" value="SERIES_X" [(ngModel)]="platforms.SERIES_X" />
+              <span>SERIES X</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="SUPER_NINTENDO" value="SUPER_NINTENDO"
+                [(ngModel)]="platforms.SUPER_NINTENDO" />
+              <span>SUPER NINTENDO</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="NINTENDO_64" value="NINTENDO_64" [(ngModel)]="platforms.NINTENDO_64" />
+              <span>NINTENDO 64</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="NINTENDO_SWITCH" value="NINTENDO_SWITCH"
+                [(ngModel)]="platforms.NINTENDO_SWITCH" />
+              <span>NINTENDO SWITCH</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="NINTENDO_WII" value="NINTENDO_WII" [(ngModel)]="platforms.NINTENDO_WII" />
+              <span>NINTENDO WII</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="NINTENDO_DS" value="NINTENDO_DS" [(ngModel)]="platforms.NINTENDO_DS" />
+              <span>NINTENDO DS</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="NINTENDO_3DS" value="NINTENDO_3DS" [(ngModel)]="platforms.NINTENDO_3DS" />
+              <span>NINTENDO 3DS</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="MEGADRIVE" value="MEGADRIVE" [(ngModel)]="platforms.MEGADRIVE" />
+              <span>MEGADRIVE</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="PC" value="PC" [(ngModel)]="platforms.PC" />
+              <span>PC</span>
+            </div>
+            <div class="checkbox-field">
+              <input type="checkbox" name="MOBILE" value="MOBILE" [(ngModel)]="platforms.MOBILE" />
+              <span>MOBILE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="cancelBtn" type="button">Cancel</button>
+        <button (click)="handleSubmit(newGame)" class="sendBtn" type="button">save game</button>
+      </div>
+    </form>
+  </div>
+</div>
