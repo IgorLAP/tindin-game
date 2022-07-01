@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
   searchList!: Game[] | [] | null
   isLogged!: boolean
   imagesBanner: { name: string, url: string }[] = [
-    { name: 'placeholder0', url: 'assets/banner0.png' }
+    { name: '', url: 'assets/banner0.png' }
   ]
   actualSlide = 0
   gamesList!: Game[]
@@ -44,7 +44,6 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
         },
         error: (err) => {
           this.spinner.hide()
-          console.log(err)
           this.toast.error(err.errors.message, 'Something went wrong')
         }
       })
@@ -54,6 +53,7 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
       highlight: true
     }).subscribe({
       next: (response) => {
+        this.imagesBanner.pop()
         response.games.map(game => {
           this.imagesBanner.push({
             name: game.title,

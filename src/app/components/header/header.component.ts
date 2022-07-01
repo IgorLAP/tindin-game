@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit, DoCheck {
         this.spinner.hide()
         this.route.navigateByUrl('/', { skipLocationChange: true })
           .then(() => this.route.navigate(['/']))
-      }, 3000)
+      }, 2000)
     }
   }
 }

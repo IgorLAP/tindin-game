@@ -1,4 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
 
@@ -27,7 +28,7 @@ interface RateGameApiResponse {
 export class GameService {
   private readonly baseApiURL = environment.baseApiURL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookie: CookieService) { }
 
   listGames({ paginationDetails = { perPage: 4, page: 1 }, highlight }: ListGamesQueryOptions): Observable<ListGamesApiResponse> {
 
@@ -44,6 +45,15 @@ export class GameService {
       )
   }
 
+  insertGame(game: Omit<Game, '_id'>): Observable<Game> {
+    let token = this.cookie.get('auth.token')
+    let headers = new HttpHeaders()
+      .set('x-api-key', token)
+    return this.http.post<Game>(`${this.baseApiURL}games`, { ...game }, { headers })
+      .pipe(
+        first()
+      )
+  }
 
   searchGame(query: string): Observable<Game[] | []> {
     return this.http.get<ListGamesApiResponse>(`${this.baseApiURL}games`)

@@ -1,11 +1,11 @@
 <div class="bannerContainer">
   <div class="bannerList">
     <div class="image">
-      <h2>{{ imagesBanner[actualSlide].name }}</h2>
-      <img [src]="imagesBanner[actualSlide].url" alt="">
+      <h2>{{ imagesBanner[actualSlide]?.name }}</h2>
+      <img [src]="imagesBanner[actualSlide]?.url" alt="">
     </div>
   </div>
-  <div class="arrows">
+  <div *ngIf="imagesBanner.length > 1" class="arrows">
     <div (click)="handleGoLeft()" class="leftArrow">
       <img src="assets/utils/left-arrow.svg" alt="">
     </div>
@@ -13,7 +13,7 @@
       <img src="assets/utils/right-arrow.svg" alt="">
     </div>
   </div>
-  <div class="pointers">
+  <div *ngIf="imagesBanner.length > 1" class="pointers">
     <div (click)="actualSlide = i" class="selector" *ngFor="let item of imagesBanner; index as i"
       [class.selected]="actualSlide === i"></div>
   </div>

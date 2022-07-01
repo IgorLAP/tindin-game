@@ -1,32 +1,7 @@
-<div class="container" *ngIf="game">
-  <div class="breadCrumb">
-    <a routerLink="/">
-      <img src="assets/utils/home.svg" alt="">
-    </a>
-    <span>|</span>
-    <p>{{ game.title }}</p>
-  </div>
+<div class="container">
+  <app-bread-crumb [gameTitle]="game.title"></app-bread-crumb>
   <div class="gameDetails">
-    <div class="images">
-      <div [class.spotlightImage]="inSpotlight" class="poster">
-        <img class="principalImg" #imgSpotlight (click)="putOnSpotlight()" [src]="game.photos[0].url"
-          alt="game.photos[0].name">
-        <div class="hideBtn" [class.closeBtn]="inSpotlight" (click)="inSpotlight = false">X</div>
-      </div>
-      <div *ngIf="game.photos.length > 1" class="slider">
-        <div (click)="slideImages(image.url)" class="slide" *ngFor=" let image of game.photos">
-          <img class="slideImg" [src]="image.url" alt="">
-        </div>
-        <div class="arrows">
-          <div class="leftArrow">
-            <img src="assets/utils/left-arrow.svg" alt="">
-          </div>
-          <div class="rightArrow">
-            <img src="assets/utils/right-arrow.svg" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-img-spotlight [sliderUrls]="sliderUrls" [game]="game"></app-img-spotlight>
     <div class="infos">
       <div class="headLine group">
         <div>
@@ -38,7 +13,8 @@
       <div class="moreDetails group">
         <div class="category">
           <p class="type">Genres: </p>
-          <p class="data" *ngFor="let genre of game.genres">{{ genre }}, </p>
+          <p class="data" *ngFor="let genre of game.genres; index as i">{{ genre }}{{ game.genres![i + 1] ? ', ' : '' }}
+          </p>
         </div>
         <div class="category">
           <p class="type">Total votes: </p>
@@ -46,7 +22,8 @@
         </div>
         <div class="category">
           <p class="type">Platforms: </p>
-          <p class="data" *ngFor="let platform of game.platforms">{{ platform }}</p>
+          <p class="data" *ngFor="let platform of game.platforms; index as i">{{ platform }}{{ game.platforms![i + 1] ?
+            ', ' : '' }}</p>
         </div>
         <div class="category">
           <p class="type">Tags </p>
@@ -56,7 +33,7 @@
       <div class="priceArea group">
         <p class="mediumPrice">Medium Price</p>
         <p class="mediumValue">{{ game.mediumPrice | currency }}</p>
-        <p class="releaseDate">Release date: <time>{{ game.launchDate }}</time></p>
+        <p class="releaseDate">Release year: <time>{{ game.releaseYear }}</time></p>
         <div class="votingArea">
           <button (click)="voteNow()" type="button">Vote Now</button>
           <div class="custom-select">

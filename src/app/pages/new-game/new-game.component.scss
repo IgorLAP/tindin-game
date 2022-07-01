@@ -1,0 +1,262 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.handle {
+  display: flex;
+}
+
+app-img-spotlight {
+  flex: 1;
+}
+
+form {
+  width: 580px;
+  margin-left: 2rem;
+
+  textarea {
+    resize: none;
+  }
+
+  input+input {
+    margin-top: 1rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder,
+  select::placeholder {
+    color: var(--white);
+  }
+
+  input,
+  textarea {
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: .1rem;
+    width: 100%;
+    padding: .5rem;
+    background: var(--gray-600);
+    border: 3px solid var(--red);
+    color: var(--white);
+    font-weight: 700;
+  }
+
+
+  .field {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    margin-top: 1rem;
+
+    &.checkbox-field label {
+      width: 150px;
+    }
+
+    label {
+      width: 200px;
+      letter-spacing: .1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--white);
+      margin-right: 1rem;
+    }
+  }
+
+
+  .tagContainer {
+    width: 100%;
+
+    .savedTags {
+      width: fit-content;
+      display: flex;
+      flex-wrap: wrap;
+
+      .tag {
+        cursor: pointer;
+        color: var(--white);
+        background: var(--red);
+        padding: 0rem 0.3rem;
+        border-radius: 0.25rem;
+        margin: 0.5rem 0;
+        transition: all ease .1s;
+
+        &:hover {
+          filter: brightness(.7);
+        }
+
+        &+.tag {
+          margin-left: 0.5rem
+        }
+      }
+    }
+  }
+
+  .actions {
+    margin: 3rem 0;
+    float: right;
+  }
+
+}
+
+.cancelBtn,
+.sendBtn,
+.showBtn {
+  border: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: .7rem 3rem;
+  margin-left: .5rem;
+  font-weight: 400;
+  color: var(--white);
+  transition: filter ease .2s;
+
+  &:hover {
+    filter: brightness(.9);
+  }
+}
+
+.cancelBtn {
+  background: var(--gray-500);
+}
+
+.sendBtn {
+  background: var(--red);
+  margin-left: 1.5rem;
+}
+
+.showBtn {
+  margin: 0;
+  margin-bottom: 1rem;
+  background: var(--red);
+}
+
+.checkbox-area {
+  display: flex;
+  margin-top: 1rem;
+
+  .head {
+    p {
+      width: 150px;
+      letter-spacing: .1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--white);
+      margin-right: 1rem;
+    }
+  }
+
+  .input-area {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .check-area {
+    display: none;
+  }
+}
+
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  margin-right: 0.8rem;
+
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: 0.5rem;
+    margin-right: 0.3rem;
+    background-color: var(--gray-600);
+    font: inherit;
+    color: currentColor;
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 0.15rem solid var(--red);
+    border-radius: 0.15rem;
+    transform: translateY(-0.75rem);
+
+    display: grid;
+    place-content: center;
+
+    &::before {
+      content: "";
+      width: .65rem;
+      height: .65rem;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em var(--red);
+      transform-origin: bottom left;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+  }
+
+  span {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .handle {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    width: 580px;
+    margin: 0;
+
+    label {
+      margin: 0;
+      margin-bottom: .5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  form {
+    width: 100%;
+
+    .field {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      margin-top: 1rem;
+      flex-direction: column;
+
+      &.checkbox-field {
+        flex-direction: row;
+      }
+
+      label {
+        width: fit-content;
+        font-size: .9rem;
+      }
+    }
+
+    .actions {
+      margin: 1rem 0;
+      display: flex;
+    }
+  }
+
+  .checkbox-area {
+    .head {
+      p {
+        width: fit-content;
+      }
+    }
+  }
+}

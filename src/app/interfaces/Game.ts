@@ -1,6 +1,5 @@
-type Genre = 'Fight' | 'Sports' | 'Survival' | 'Horror' | 'RPG' | 'Fps' | 'Tps' | 'Platform' | 'Adventure' | 'Action' | 'Minigame' | 'Racing' | 'Strategy' | 'Musical' | 'Dance' | 'Simulator';
-
-type Platform = 'PS' | 'PS2' | 'PS3' | 'PS4' | 'PS5' | 'PSP' | 'XBOX' | 'XBOX 360' | 'XBOX ONE' | 'XBOX SERIES S' | 'XBOX' | 'SERIES X' | 'SUPER NINTENDO' | 'NINTENDO 64' | 'NINTENDO SWITCH' | 'NINTENDO WII' | 'NINTENDO DS' | 'NINTENDO 3DS' | 'MEGA DRIVE' | 'PC' | 'MOBILE'
+import { Genre } from "./Genre";
+import { Platform } from "./Platform";
 
 export interface Game {
   _id: string;
