@@ -19,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './img-spotlight.component.html',
   styleUrls: ['./img-spotlight.component.scss']
 })
-export class ImgSpotlightComponent implements OnInit, AfterViewChecked, AfterContentChecked {
+export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('imgSpotlight') imgSpotlight!: ElementRef
   @ViewChild('marginChange') marginChange!: ElementRef
@@ -40,10 +40,6 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked, AfterCon
 
   ngOnInit(): void {
 
-  }
-
-  ngAfterContentChecked(): void {
-    console.log(this.sliderUrls)
   }
 
   ngAfterViewChecked(): void {
@@ -75,7 +71,6 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked, AfterCon
     }
     const reverseUrlExtension = reverseString(url).split(".")[0]
     const urlExtension = reverseString(reverseUrlExtension)
-    console.log(reverseUrlExtension, urlExtension)
     for (let i in validExtensions) {
       if (urlExtension.includes(validExtensions[i])) {
         return true
