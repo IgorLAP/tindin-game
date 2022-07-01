@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -14,17 +15,18 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class GameComponent implements OnInit {
 
-  @ViewChild('imgSpotlight') imgSpotlight!: ElementRef
-  @ViewChild('selectVote') selectVote!: ElementRef
+  @ViewChild('selectVote', { static: false }) selectVote!: ElementRef
   game!: Game
-  inSpotlight = false
+  sliderUrls: SafeResourceUrl[] = []
 
   constructor(
     private activedRoute: ActivatedRoute,
     private gameService: GameService,
     private toast: ToastrService,
     private route: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private cdr: ChangeDetectorRef,
+    private domSanitazer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -34,22 +36,15 @@ export class GameComponent implements OnInit {
         next: (response) => {
           const formattedGame = gameExhibitionFormatter(response)
           this.game = formattedGame
+          formattedGame.photos.map(photo => this.sliderUrls.push(photo.url))
+          formattedGame.videos.map(video =>
+            this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(video.url))
+          )
         },
         error: (err) => {
           this.toast.error(err.error.message, 'Something went wrong')
         }
       })
-  }
-
-  slideImages(url: string) {
-    this.imgSpotlight.nativeElement.src = url
-    this.inSpotlight = true
-  }
-
-  putOnSpotlight() {
-    if (this.game.photos.length > 1) {
-      this.inSpotlight = true
-    }
   }
 
   voteNow() {

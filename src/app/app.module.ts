@@ -17,6 +17,8 @@ import { GameComponent } from './pages/game/game.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NewGameComponent } from './pages/new-game/new-game.component';
 import { SigninComponent } from './pages/signin/signin.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ImgSpotlightComponent } from './components/img-spotlight/img-spotlight.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SigninComponent } from './pages/signin/signin.component';
     NewGameComponent,
     GameComponent,
     BannerComponent,
-    GamesAreaComponent
+    GamesAreaComponent,
+    BreadCrumbComponent,
+    ImgSpotlightComponent
   ],
   imports: [
     BrowserModule,

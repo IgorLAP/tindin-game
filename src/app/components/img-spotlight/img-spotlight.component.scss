@@ -1,0 +1,201 @@
+.images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 360px;
+
+  .poster {
+    transition: background ease-out .2s;
+  }
+
+  .poster.spotlightImage {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, .8);
+
+    .principalImg {
+      cursor: default;
+      height: 80vh;
+      width: 80vw;
+      pointer-events: none;
+    }
+  }
+
+  .hideBtn {
+    display: none;
+  }
+
+  .closeBtn {
+    position: absolute;
+    right: 65px;
+    top: 15px;
+    font-weight: bold;
+    font-size: 2.5rem;
+    border-radius: 2.25rem;
+    cursor: pointer;
+    color: var(--gray-300);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      filter: brightness(.8);
+    }
+  }
+
+  .principalImg,
+  .principalNewGameImg {
+
+    width: 100%;
+    height: 580px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .principalImg {
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(.7);
+    }
+  }
+
+  .slider {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 135px;
+    width: 380px;
+    overflow-x: hidden;
+    margin: 1rem;
+    position: relative;
+    padding: 0 1.3rem;
+
+    .slide {
+      &+.slide {
+        margin-left: 1rem;
+      }
+    }
+
+    .slideContainer {
+      display: flex;
+      width: 880px;
+      overflow-x: hidden;
+      transition: all ease .2s;
+    }
+
+    .slideImg {
+      cursor: pointer;
+      height: 120px;
+      width: 120px;
+      object-fit: cover;
+      object-position: center;
+
+      &:hover {
+        filter: brightness(.7);
+      }
+    }
+  }
+
+  .arrows {
+    color: var(--red);
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 99;
+    top: 45px;
+    left: 0;
+    right: 0;
+
+    .leftArrow,
+    .rightArrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--white);
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 20px;
+        filter: invert(28%) sepia(72%) saturate(5098%) hue-rotate(350deg) brightness(94%) contrast(101%);
+      }
+    }
+  }
+}
+
+.newGameMedia {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: .5rem;
+
+  input {
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: .1rem;
+    width: 100%;
+    padding: .5rem;
+    background: var(--gray-600);
+    border: 3px solid var(--red);
+    color: var(--white);
+    font-weight: 700;
+
+    &::placeholder {
+      color: var(--white);
+    }
+  }
+
+  .addBtn {
+    border: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: .7rem 3rem;
+    margin-top: 1rem;
+    font-weight: 400;
+    color: var(--white);
+    background: var(--red);
+    transition: filter ease .2s;
+
+    &:hover {
+      filter: brightness(.9);
+    }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .images {
+    width: unset;
+
+    .principalImg,
+    .principalNewGameImg {
+      height: 380px;
+    }
+
+    .slider {
+      width: 100%;
+
+      .slideContainer {
+        width: inherit;
+      }
+    }
+
+    .closeBtn {
+      right: 10px;
+      top: 15px;
+    }
+  }
+}
