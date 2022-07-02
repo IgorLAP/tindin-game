@@ -1,0 +1,10 @@
+<div class="gameList" *ngIf="gamesList">
+  <a *ngFor="let game of gamesList" routerLink="/game/{{ game._id }}">
+    <div class="game">
+      <img [src]="game.photos[0].url" alt="">
+      <p class="title">{{ game.title }}</p>
+      <p class="price">{{ game.mediumPrice | currency }}</p>
+      <span>{{ game.rating }}/10</span>
+    </div>
+  </a>
+</div>

@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
   ]
   actualSlide = 0
   gamesList!: Game[]
-  moreGames = false
+  hasMoreGames = false
 
   constructor(
     private gameService: GameService,
@@ -104,8 +104,8 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
           return this.gamesList.push(game)
         })
         if (this.gamesList.length === response.totalSize) {
-          if (!this.moreGames) {
-            this.moreGames = true
+          if (!this.hasMoreGames) {
+            this.hasMoreGames = true
           }
         }
         this.spinner.hide()

@@ -4,10 +4,10 @@
       <img src="assets/logo/logo-tindin.svg" alt="logo">
       <img src="assets/logo/name-tindin.svg" alt="name">
     </a>
-    <form *ngIf="!isLogged" method="GET">
-      <input type="text" placeholder="Search game here">
-      <button>Search</button>
-    </form>
+    <div class="searchArea" *ngIf="!isLogged">
+      <input #searchInput type="text" placeholder="Search game here">
+      <button [routerLink]="['/search']" [queryParams]="{ q: searchInput.value }">Search</button>
+    </div>
     <a *ngIf="!isLogged" routerLink="/login" class="profileBtn">
       <img class="profileIcon" src="assets/utils/person.svg" alt="profile">
     </a>
