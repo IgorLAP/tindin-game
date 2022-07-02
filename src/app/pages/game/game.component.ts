@@ -59,56 +59,53 @@ export class GameComponent implements OnInit {
   voteNow() {
     if (!this.selectVote.nativeElement.value) {
       this.toast.warning('Rate the game first')
+      return;
     } else {
-      if (confirm('Confirm vote?')) {
-        this.spinner.show()
-        const data = {
-          id: this.activedRoute.snapshot.params['id'],
-          rate: Number(this.selectVote.nativeElement.value)
-        }
-        this.gameService.rateGame(data.id, data.rate)
-          .subscribe({
-            next: () => {
-              this.spinner.hide()
-              this.toast.success('Your vote has been counted', 'Thank you')
-              this.route.navigateByUrl('/', { skipLocationChange: true })
-                .then(() => this.route.navigate([`/game/${data.id}`]))
-            },
-            error: (err) => {
-              this.spinner.hide()
-              this.toast.error(`${err.error.message}`, 'Something went wrong')
-            }
-          })
+      this.spinner.show()
+      const data = {
+        id: this.activedRoute.snapshot.params['id'],
+        rate: Number(this.selectVote.nativeElement.value)
       }
+      this.gameService.rateGame(data.id, data.rate)
+        .subscribe({
+          next: () => {
+            this.spinner.hide()
+            this.toast.success('Your vote has been counted', 'Thank you')
+            this.route.navigateByUrl('/', { skipLocationChange: true })
+              .then(() => this.route.navigate([`/game/${data.id}`]))
+          },
+          error: (err) => {
+            this.spinner.hide()
+            this.toast.error(`${err.error.message}`, 'Something went wrong')
+          }
+        })
     }
   }
 
   handleDeleteGame(gameId: string) {
-    if (confirm(`Delete game ${this.game.title}?`)) {
-      this.spinner.show()
-      this.gameService.deleteGame(gameId)
-        .subscribe({
-          next: (response) => {
-            this.spinner.hide()
-            this.toast.success('Successfully deleted', 'Deleted')
-            this.route.navigate(['/'])
-          },
-          error: (err) => {
-            this.spinner.hide()
-            if (err.error.statusCode == 401) {
-              this.toast.error(`${err.error.message}`, "You don't have persmission")
-            }
-
-            if (err.error.statusCode == 412) {
-              this.toast.error(`${err.error.message}`, "Game not found")
-            }
-
-            if (err.status == 500) {
-              this.toast.error('Internal Server Error', "Something went wrong")
-            }
+    this.spinner.show()
+    this.gameService.deleteGame(gameId)
+      .subscribe({
+        next: (response) => {
+          this.spinner.hide()
+          this.toast.success('Successfully deleted', 'Deleted')
+          this.route.navigate(['/'])
+        },
+        error: (err) => {
+          this.spinner.hide()
+          if (err.error.statusCode == 401) {
+            this.toast.error(`${err.error.message}`, "You don't have persmission")
           }
-        })
-    }
+
+          if (err.error.statusCode == 412) {
+            this.toast.error(`${err.error.message}`, "Game not found")
+          }
+
+          if (err.status == 500) {
+            this.toast.error('Internal Server Error', "Something went wrong")
+          }
+        }
+      })
   }
 
 }

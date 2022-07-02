@@ -18,10 +18,12 @@
     "@angular/platform-browser": "^14.0.3",
     "@angular/platform-browser-dynamic": "^14.0.3",
     "@angular/router": "^14.0.3",
+    "@sweetalert2/ngx-sweetalert2": "^11.0.0",
     "ngx-cookie-service": "^14.0.1",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.0.0",
     "rxjs": "~7.4.0",
+    "sweetalert2": "^11.4.19",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
