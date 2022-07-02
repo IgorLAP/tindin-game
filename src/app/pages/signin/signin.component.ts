@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
 
 import { AuthService } from 'src/app/services/auth.service';
+import { returnAuthRoutesError } from 'src/app/helpers/returnAuthRoutesError';
 
 @Component({
   selector: 'app-signin',
@@ -60,9 +61,10 @@ export class SigninComponent implements OnInit {
             this.toast.success('Login succeeded', 'Welcome')
             this.router.navigate(['/'])
           },
-          error: (response) => {
+          error: (err) => {
+            const { message, name } = returnAuthRoutesError(err)
+            this.toast.error(message, name)
             this.spinner.hide()
-            this.toast.error(`${response.error.message}`, 'Invalid Login')
           }
         })
     }

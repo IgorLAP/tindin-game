@@ -260,3 +260,22 @@ form {
     }
   }
 }
+
+@media screen and (max-width: 320px) {
+  form {
+    width: 280px;
+  }
+
+  .actions {
+
+    .cancelBtn,
+    .sendBtn {
+      margin: 0;
+      padding: .7rem 1rem;
+    }
+
+    .sendBtn {
+      margin-left: 1rem;
+    }
+  }
+}

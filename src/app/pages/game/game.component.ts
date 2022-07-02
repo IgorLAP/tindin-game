@@ -8,6 +8,7 @@ import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter
 import { Game } from 'src/app/interfaces/Game';
 import { GameService } from 'src/app/services/game.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
 
 @Component({
   selector: 'app-game',
@@ -51,7 +52,9 @@ export class GameComponent implements OnInit {
           })
         },
         error: (err) => {
-          this.toast.error(err.error.message, 'Something went wrong')
+          const { message, name } = returnGameRoutesError(err)
+          this.toast.error(message, name)
+          this.spinner.hide()
         }
       })
   }
@@ -75,8 +78,9 @@ export class GameComponent implements OnInit {
               .then(() => this.route.navigate([`/game/${data.id}`]))
           },
           error: (err) => {
+            const { message, name } = returnGameRoutesError(err)
+            this.toast.error(message, name)
             this.spinner.hide()
-            this.toast.error(`${err.error.message}`, 'Something went wrong')
           }
         })
     }
@@ -92,18 +96,9 @@ export class GameComponent implements OnInit {
           this.route.navigate(['/'])
         },
         error: (err) => {
+          const { message, name } = returnGameRoutesError(err)
+          this.toast.error(message, name)
           this.spinner.hide()
-          if (err.error.statusCode == 401) {
-            this.toast.error(`${err.error.message}`, "You don't have persmission")
-          }
-
-          if (err.error.statusCode == 412) {
-            this.toast.error(`${err.error.message}`, "Game not found")
-          }
-
-          if (err.status == 500) {
-            this.toast.error('Internal Server Error', "Something went wrong")
-          }
         }
       })
   }
