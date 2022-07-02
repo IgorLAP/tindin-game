@@ -7,6 +7,7 @@ import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter
 import { Game } from 'src/app/interfaces/Game';
 import { AuthService } from 'src/app/services/auth.service';
 import { GameService } from 'src/app/services/game.service';
+import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
 
 @Component({
   selector: 'app-home',
@@ -43,8 +44,9 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
           this.gamesList = value.games.map(game => gameExhibitionFormatter(game))
         },
         error: (err) => {
+          const { message, name } = returnGameRoutesError(err)
+          this.toast.error(message, name)
           this.spinner.hide()
-          this.toast.error(err.errors.message, 'Something went wrong')
         }
       })
 
@@ -62,7 +64,9 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
         })
       },
       error: (err) => {
-        this.toast.error(err.errors.message, 'Problem with banner images')
+        const { message, name } = returnGameRoutesError(err)
+        this.toast.error(message, name)
+        this.spinner.hide()
       }
     })
   }

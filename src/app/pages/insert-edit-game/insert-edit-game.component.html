@@ -4,7 +4,7 @@
     <app-img-spotlight *ngIf="!updateMode" [sliderUrls]="sliderUrls" (newMedia)="handleNewMedia($event)"
       [newGame]="true">
     </app-img-spotlight>
-    <form #newGame="ngForm">
+    <form #formGame="ngForm">
       <input *ngIf="!updateMode" placeholder="Enter game title" type="text" name="title" [(ngModel)]="title">
       <input *ngIf="!updateMode" placeholder="Enter resume game here" type="text" name="resume" [(ngModel)]="resume">
       <div class="field">
@@ -197,8 +197,10 @@
         <button
           [swal]="{ title: 'Your progress will be lost', showConfirmButton: true, confirmButtonText: 'Confirm', showDenyButton: true, background: 'var(--background)', color: 'white', confirmButtonColor: 'green', denyButtonText: 'Cancel' }"
           (confirm)="handleCancelBtn()" class="cancelBtn" type="button">Cancel</button>
-        <button *ngIf="!updateMode" (click)="handleSubmit(newGame)" class="sendBtn" type="button">save game</button>
-        <button *ngIf="updateMode" (click)="handleUpdate()" class="sendBtn" type="button">update game</button>
+        <button [disabled]="isFormValid()" *ngIf="!updateMode" (click)="handleSubmit(formGame)" class="sendBtn"
+          type="button">save game</button>
+        <button [disabled]="isFormValid()" *ngIf="updateMode" (click)="handleUpdate()" class="sendBtn"
+          type="button">update game</button>
       </div>
     </form>
   </div>

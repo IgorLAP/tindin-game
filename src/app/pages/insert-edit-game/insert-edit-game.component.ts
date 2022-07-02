@@ -4,6 +4,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+
+import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
 import { Genre } from 'src/app/interfaces/Genre';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -26,8 +28,8 @@ export class InsertEditGameComponent implements OnInit {
   @ViewChild('tagInput') tagInput!: ElementRef
   isLogged!: boolean
   _id!: string
-  title = ''
-  resume = ''
+  title!: string
+  resume!: string
   genres = {
     Fight: false,
     Sports: false,
@@ -71,12 +73,11 @@ export class InsertEditGameComponent implements OnInit {
   tags: string[] = []
   mediumPrice!: number
   releaseYear!: number
-  description = ''
+  description!: string
   highlight!: boolean
   photos: { name: string, url: string }[] = []
   videos: { type: 'TRAILER' | 'GAMEPLAY' | 'CUSTOM', url: string }[] = []
   sliderUrls: SafeResourceUrl[] = []
-
   updateMode = false
 
   constructor(
@@ -105,7 +106,9 @@ export class InsertEditGameComponent implements OnInit {
             this.spinner.hide()
           },
           error: (err) => {
-
+            const { message, name } = returnGameRoutesError(err)
+            this.toast.error(message, name)
+            this.spinner.hide()
           }
         })
     }
@@ -147,10 +150,16 @@ export class InsertEditGameComponent implements OnInit {
     }
   }
 
+  isFormValid(): boolean { return !this.title || !this.description }
+
   handleSubmit(form: NgForm) {
     const { genres, platforms } = this.checkChosenFields(form.form.value)
-    const { title, resume, mediumPrice, releaseYear, description } = form.form.value
-    // validações
+
+    if (!this.title || !this.description) {
+      this.toast.error('Title and Description are required fields')
+      return;
+    }
+
     this.spinner.show()
     const newGame = {
       genres, platforms, title: this.title, resume: this.resume, mediumPrice: this.mediumPrice,
@@ -165,8 +174,9 @@ export class InsertEditGameComponent implements OnInit {
           this.router.navigate(['/'])
         },
         error: (err) => {
+          const { message, name } = returnGameRoutesError(err)
+          this.toast.error(message, name)
           this.spinner.hide()
-          this.toast.error(err.error.message, 'Something went wrong')
         }
       })
   }
@@ -178,7 +188,12 @@ export class InsertEditGameComponent implements OnInit {
       releaseYear: this.releaseYear,
       mediumPrice: this.mediumPrice,
     }
-    //validations
+
+    if (!this.description) {
+      this.toast.error('Description is a required field')
+      return;
+    }
+
     this.spinner.show()
     this.gameService.updateGame(data)
       .subscribe({
@@ -188,9 +203,9 @@ export class InsertEditGameComponent implements OnInit {
           this.router.navigate([`/game/${this._id}`])
         },
         error: (err) => {
-          console.log(err)
+          const { message, name } = returnGameRoutesError(err)
+          this.toast.error(message, name)
           this.spinner.hide()
-          this.toast.error('Something went wrong', 'Error')
         }
       })
   }
