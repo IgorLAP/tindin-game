@@ -1,14 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Genre } from 'src/app/interfaces/Genre';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { GameService } from 'src/app/services/game.service';
-import { Platform } from './../../interfaces/Platform';
+import { Platform } from '../../interfaces/Platform';
 
 interface MediaTypes {
   name?: string;
@@ -17,14 +17,15 @@ interface MediaTypes {
 }
 
 @Component({
-  selector: 'app-new-game',
-  templateUrl: './new-game.component.html',
-  styleUrls: ['./new-game.component.scss']
+  selector: 'app-insert-edit-game',
+  templateUrl: './insert-edit-game.component.html',
+  styleUrls: ['./insert-edit-game.component.scss']
 })
-export class NewGameComponent implements OnInit {
+export class InsertEditGameComponent implements OnInit {
 
   @ViewChild('tagInput') tagInput!: ElementRef
   isLogged!: boolean
+  _id!: string
   title = ''
   resume = ''
   genres = {
@@ -76,16 +77,38 @@ export class NewGameComponent implements OnInit {
   videos: { type: 'TRAILER' | 'GAMEPLAY' | 'CUSTOM', url: string }[] = []
   sliderUrls: SafeResourceUrl[] = []
 
+  updateMode = false
+
   constructor(
     private gameService: GameService,
     private domSanitazer: DomSanitizer,
     private router: Router,
     private spinner: NgxSpinnerService,
     private toast: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private activedRoute: ActivatedRoute
   ) {
     this.isLogged = this.authService.isLogged
     if (!this.isLogged) this.router.navigate(['/'])
+    const id = this.activedRoute.snapshot.params['id']
+    if (id) {
+      this.spinner.show()
+      this.updateMode = true
+      this.gameService.getGame(id)
+        .subscribe({
+          next: (response) => {
+            this._id = response._id
+            this.title = response.title
+            this.description = response.description
+            this.releaseYear = response.releaseYear ?? 0
+            this.mediumPrice = response.mediumPrice ?? 0
+            this.spinner.hide()
+          },
+          error: (err) => {
+
+          }
+        })
+    }
   }
 
   ngOnInit(): void {
@@ -138,12 +161,36 @@ export class NewGameComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.spinner.hide()
-          this.toast.show(`Successfully created`, 'Created')
+          this.toast.success(`Successfully created`, 'Created')
           this.router.navigate(['/'])
         },
         error: (err) => {
           this.spinner.hide()
           this.toast.error(err.error.message, 'Something went wrong')
+        }
+      })
+  }
+
+  handleUpdate() {
+    const data = {
+      _id: this._id,
+      description: this.description,
+      releaseYear: this.releaseYear,
+      mediumPrice: this.mediumPrice,
+    }
+    //validations
+    this.spinner.show()
+    this.gameService.updateGame(data)
+      .subscribe({
+        next: (response) => {
+          this.spinner.hide()
+          this.toast.success('Success', 'Game updated')
+          this.router.navigate([`/game/${this._id}`])
+        },
+        error: (err) => {
+          console.log(err)
+          this.spinner.hide()
+          this.toast.error('Something went wrong', 'Error')
         }
       })
   }

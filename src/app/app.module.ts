@@ -15,7 +15,7 @@ import { GamesAreaComponent } from './components/games-area/games-area.component
 import { HeaderComponent } from './components/header/header.component';
 import { GameComponent } from './pages/game/game.component';
 import { HomeComponent } from './pages/home/home.component';
-import { NewGameComponent } from './pages/new-game/new-game.component';
+import { InsertEditGameComponent } from './pages/insert-edit-game/insert-edit-game.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { ImgSpotlightComponent } from './components/img-spotlight/img-spotlight.component';
@@ -27,7 +27,7 @@ import { ImgSpotlightComponent } from './components/img-spotlight/img-spotlight.
     FooterComponent,
     HomeComponent,
     SigninComponent,
-    NewGameComponent,
+    InsertEditGameComponent,
     GameComponent,
     BannerComponent,
     GamesAreaComponent,

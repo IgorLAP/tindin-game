@@ -22,6 +22,14 @@ interface RateGameApiResponse {
   totalVotes: number;
 }
 
+interface UpdateGameFields {
+  _id: string;
+  description?: string;
+  releaseYear?: number;
+  mediumPrice?: number;
+  launchDate?: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -60,6 +68,13 @@ export class GameService {
     let headers = new HttpHeaders()
       .set('x-api-key', token)
     return this.http.delete<Game>(`${this.baseApiURL}games/${gameId}`, { headers })
+  }
+
+  updateGame(updateFields: UpdateGameFields): Observable<Game> {
+    let token = this.cookie.get('auth.token')
+    let headers = new HttpHeaders()
+      .set('x-api-key', token)
+    return this.http.put<Game>(`${this.baseApiURL}games`, { ...updateFields }, { headers })
   }
 
   searchGame(query: string): Observable<Game[] | []> {

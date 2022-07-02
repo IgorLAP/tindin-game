@@ -33,6 +33,8 @@ app-bread-crumb {
   }
 }
 
+
+
 .actionBtn {
   border: 0;
   background: transparent;
@@ -49,6 +51,11 @@ app-bread-crumb {
   border-radius: 1.5rem;
   display: block;
   padding: 0.2rem;
+}
+
+.updateIcon {
+  background: yellow;
+  margin-bottom: 1rem;
 }
 
 .deleteIcon {
@@ -210,6 +217,10 @@ h2 {
   .gameDetails {
     flex-direction: column;
 
+  }
+
+  .headLine {
+    margin-top: 1rem;
   }
 
   .infos {
