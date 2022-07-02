@@ -1,6 +1,6 @@
 import {
-  AfterContentChecked,
   AfterViewChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -32,15 +32,17 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
   marginLeft = 0
   sliderWidth!: string
 
+  @ViewChild('arrows') arrows!: ElementRef
+
   constructor(
     private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
-    private toast: ToastrService
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
-
   }
+
 
   ngAfterViewChecked(): void {
     this.sliderWidth = this.sliderUrls ? `${this.sliderUrls.length * 150}px` : '0px'
@@ -111,9 +113,13 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  slideImages(url: string | SafeResourceUrl) {
-    this.imgSpotlight.nativeElement.src = url
-    this.inSpotlight = true
+  changeImgSpotlight(url: string | SafeResourceUrl) {
+    if (typeof url === 'string') {
+      this.imgSpotlight.nativeElement.src = url
+      this.inSpotlight = true
+      return;
+    }
+    return;
   }
 
   putOnSpotlight() {

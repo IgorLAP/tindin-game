@@ -199,3 +199,29 @@
     }
   }
 }
+
+@media screen and (max-width: 560px) {
+  .images {
+    width: 460px;
+
+    .principalImg,
+    .principalNewGameImg {
+      height: 280px;
+    }
+
+    .slider {
+      .slideContainer {
+        width: unset;
+      }
+
+    }
+  }
+
+}
+
+@media screen and (max-width: 490px) {
+  .images {
+    width: 280px;
+  }
+
+}

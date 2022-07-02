@@ -9,14 +9,14 @@
   </div>
   <div *ngIf="!newGame && sliderUrls.length > 1" class="slider">
     <div #marginChange class="slideContainer">
-      <div (click)="slideImages(url)" class="slide" *ngFor=" let url of sliderUrls">
+      <div (click)="changeImgSpotlight(url)" class="slide" *ngFor=" let url of sliderUrls">
         <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
         <iframe *ngIf="!isString(url)" [src]="url"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="120"
           height="120" frameborder="0"></iframe>
       </div>
     </div>
-    <div class="arrows">
+    <div #arrows class="arrows">
       <div (click)="handleGoLeft()" class="leftArrow">
         <img src="assets/utils/left-arrow.svg" alt="">
       </div>
