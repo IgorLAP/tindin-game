@@ -194,7 +194,9 @@
         </div>
       </div>
       <div class="actions">
-        <button class="cancelBtn" type="button">Cancel</button>
+        <button
+          [swal]="{ title: 'Your progress will be lost', showConfirmButton: true, confirmButtonText: 'Confirm', showDenyButton: true, background: 'var(--background)', color: 'white', confirmButtonColor: 'green', denyButtonText: 'Cancel' }"
+          (confirm)="handleCancelBtn()" class="cancelBtn" type="button">Cancel</button>
         <button *ngIf="!updateMode" (click)="handleSubmit(newGame)" class="sendBtn" type="button">save game</button>
         <button *ngIf="updateMode" (click)="handleUpdate()" class="sendBtn" type="button">update game</button>
       </div>

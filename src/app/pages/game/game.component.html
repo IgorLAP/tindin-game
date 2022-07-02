@@ -16,7 +16,9 @@
             <img src="assets/utils/pencil.svg" class="updateIcon" title="Update" alt="update">
           </a>
           <button class="actionBtn">
-            <img (click)="handleDeleteGame(game._id)" src="assets/utils/trash.svg" title="Delete" class="deleteIcon"
+            <img
+              [swal]="{ title: 'Confirm Delete?', confirmButtonText: 'Yes',showDenyButton: true, denyButtonText: 'Cancel', background: 'var(--background)', color: 'white', confirmButtonColor: 'green' }"
+              (confirm)="handleDeleteGame(game._id)" src="assets/utils/trash.svg" title="Delete" class="deleteIcon"
               alt="delete">
           </button>
         </div>
@@ -46,7 +48,8 @@
         <p class="mediumValue">{{ game.mediumPrice | currency }}</p>
         <p class="releaseDate">Release year: <time>{{ game.releaseYear }}</time></p>
         <div class="votingArea">
-          <button class="voteNow" (click)="voteNow()" type="button">Vote Now</button>
+          <button class="voteNow" [swal]="{ title: 'Confirm Vote?', showDenyButton: true, denyButtonText: 'No' }"
+            (confirm)="voteNow()" type=" button">Vote Now</button>
           <div class="custom-select">
             <select #selectVote name="voting" id="voting">
               <option value="">Vote now</option>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import 'sweetalert2/dist/sweetalert2.js'
 
 @Component({
   selector: 'app-root',

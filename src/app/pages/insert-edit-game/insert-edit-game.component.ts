@@ -215,6 +215,10 @@ export class InsertEditGameComponent implements OnInit {
     }
   }
 
+  handleCancelBtn() {
+    this.router.navigate(['/'])
+  }
+
   keyPress(tag: string) {
     this.tagInput.nativeElement.value = ''
     this.tags.push(tag)
