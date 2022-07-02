@@ -19,6 +19,8 @@ import { InsertEditGameComponent } from './pages/insert-edit-game/insert-edit-ga
 import { SigninComponent } from './pages/signin/signin.component';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { ImgSpotlightComponent } from './components/img-spotlight/img-spotlight.component';
+import { SearchComponent } from './pages/search/search.component';
+import { GameListComponent } from './components/game-list/game-list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ImgSpotlightComponent } from './components/img-spotlight/img-spotlight.
     BannerComponent,
     GamesAreaComponent,
     BreadCrumbComponent,
-    ImgSpotlightComponent
+    ImgSpotlightComponent,
+    SearchComponent,
+    GameListComponent
   ],
   imports: [
     BrowserModule,

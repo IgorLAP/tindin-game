@@ -10,7 +10,7 @@ export class GamesAreaComponent implements OnInit {
 
   @Input() gamesList!: Game[]
   @Input() searchList!: Game[] | [] | null
-  @Input() moreGames!: boolean
+  @Input() hasMoreGames!: boolean
   @Output() viewMoreGames = new EventEmitter()
   paginationDetails = {
     perPage: 4,
@@ -23,7 +23,7 @@ export class GamesAreaComponent implements OnInit {
   }
 
   handleMoreGames() {
-    if (!this.moreGames) {
+    if (!this.hasMoreGames) {
       this.paginationDetails.page++
       this.viewMoreGames.emit(this.paginationDetails)
     }

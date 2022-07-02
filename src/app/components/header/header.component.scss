@@ -30,7 +30,7 @@ header {
     }
   }
 
-  form {
+  .searchArea {
     display: flex;
     width: 380px;
 
@@ -102,7 +102,7 @@ header {
       }
     }
 
-    form {
+    .searchArea {
       width: 480px;
       margin: 1rem 0;
 
@@ -135,7 +135,7 @@ header {
       }
     }
 
-    form {
+    .searchArea {
       width: 280px;
     }
   }

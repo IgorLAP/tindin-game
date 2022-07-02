@@ -1,3 +1,4 @@
+import { SearchComponent } from './pages/search/search.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'login', component: SigninComponent },
   { path: 'game/:id', component: GameComponent },
   { path: 'game', component: InsertEditGameComponent },
-  { path: 'edit/:id', component: InsertEditGameComponent }
+  { path: 'edit/:id', component: InsertEditGameComponent },
+  { path: 'search', component: SearchComponent }
 ]
 
 @NgModule({
