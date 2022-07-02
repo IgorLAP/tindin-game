@@ -1,11 +1,12 @@
 <div class="container">
   <app-bread-crumb [gameTitle]="title"></app-bread-crumb>
   <div class="handle">
-    <app-img-spotlight [sliderUrls]="sliderUrls" (newMedia)="handleNewMedia($event)" [newGame]="true">
+    <app-img-spotlight *ngIf="!updateMode" [sliderUrls]="sliderUrls" (newMedia)="handleNewMedia($event)"
+      [newGame]="true">
     </app-img-spotlight>
     <form #newGame="ngForm">
-      <input placeholder="Enter game title" type="text" name="title" [(ngModel)]="title">
-      <input placeholder="Enter resume game here" type="text" name="resume" [(ngModel)]="resume">
+      <input *ngIf="!updateMode" placeholder="Enter game title" type="text" name="title" [(ngModel)]="title">
+      <input *ngIf="!updateMode" placeholder="Enter resume game here" type="text" name="resume" [(ngModel)]="resume">
       <div class="field">
         <label for="mediumPrice">Medium Price: </label>
         <input placeholder="Enter medium price" type="number" name="mediumPrice" [(ngModel)]="mediumPrice">
@@ -14,7 +15,7 @@
         <label for="releaseYear">Release Year: </label>
         <input placeholder="Enter release year" type="number" name="releaseYear" [(ngModel)]="releaseYear">
       </div>
-      <div class="field">
+      <div *ngIf="!updateMode" class="field">
         <label for="tags">Tags: </label>
         <div class="tagContainer">
           <input #tagInput (keydown.enter)="keyPress(tagInput.value)" placeholder="Type this game tags" type="text">
@@ -23,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="field checkbox-field">
+      <div *ngIf="!updateMode" class="field checkbox-field">
         <label for="highlight">Highlight: </label>
         <input type="checkbox" name="highlight" value="highlight" [(ngModel)]="highlight" />
       </div>
@@ -32,7 +33,7 @@
         <textarea placeholder="Enter description game" name="description" [(ngModel)]="description" cols="30"
           rows="10"></textarea>
       </div>
-      <div class="checkbox-area">
+      <div *ngIf="!updateMode" class="checkbox-area">
         <div class="head">
           <p>Genres: </p>
         </div>
@@ -101,7 +102,7 @@
           </div>
         </div>
       </div>
-      <div class="checkbox-area">
+      <div *ngIf="!updateMode" class="checkbox-area">
         <div class="head">
           <p>Platforms: </p>
         </div>
@@ -194,7 +195,8 @@
       </div>
       <div class="actions">
         <button class="cancelBtn" type="button">Cancel</button>
-        <button (click)="handleSubmit(newGame)" class="sendBtn" type="button">save game</button>
+        <button *ngIf="!updateMode" (click)="handleSubmit(newGame)" class="sendBtn" type="button">save game</button>
+        <button *ngIf="updateMode" (click)="handleUpdate()" class="sendBtn" type="button">update game</button>
       </div>
     </form>
   </div>

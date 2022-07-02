@@ -90,7 +90,7 @@ export class GameComponent implements OnInit {
         .subscribe({
           next: (response) => {
             this.spinner.hide()
-            this.toast.show('Successfully deleted', 'Deleted')
+            this.toast.success('Successfully deleted', 'Deleted')
             this.route.navigate(['/'])
           },
           error: (err) => {

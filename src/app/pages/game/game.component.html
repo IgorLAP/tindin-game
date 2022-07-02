@@ -12,8 +12,12 @@
           <span class="resume">{{ game.resume }}</span>
         </div>
         <div *ngIf="isLogged" class="adminActions">
+          <a routerLink="/edit/{{game._id}}" class="actionBtn">
+            <img src="assets/utils/pencil.svg" class="updateIcon" title="Update" alt="update">
+          </a>
           <button class="actionBtn">
-            <img (click)="handleDeleteGame(game._id)" src="assets/utils/trash.svg" class="deleteIcon" alt="delete">
+            <img (click)="handleDeleteGame(game._id)" src="assets/utils/trash.svg" title="Delete" class="deleteIcon"
+              alt="delete">
           </button>
         </div>
       </div>
