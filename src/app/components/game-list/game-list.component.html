@@ -3,7 +3,7 @@
     <div class="game">
       <img [src]="game.photos[0].url" alt="">
       <p class="title">{{ game.title }}</p>
-      <p class="price">{{ game.mediumPrice | currency }}</p>
+      <p class="price">{{ game.mediumPrice ? (game.mediumPrice | currency ) : 'Price unavailable' }}</p>
       <span>{{ game.rating }}/10</span>
     </div>
   </a>

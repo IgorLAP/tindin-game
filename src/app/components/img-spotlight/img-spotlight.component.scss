@@ -75,7 +75,8 @@
     justify-content: start;
     align-items: center;
     width: 100%;
-    height: 170px;
+    height: 220px;
+    // height: 170px;
     width: 380px;
     overflow-x: hidden;
     margin: 1rem;
@@ -97,8 +98,10 @@
 
     .slideImg {
       cursor: pointer;
-      height: 160px;
-      width: 160px;
+      height: 210px;
+      width: 210px;
+      // height: 160px;
+      // width: 160px;
       object-fit: cover;
       object-position: center;
 
@@ -145,6 +148,7 @@
     width: fit-content;
     display: flex;
     flex-wrap: wrap;
+    margin: .5rem 0;
 
     .tag {
       cursor: pointer;
@@ -152,7 +156,8 @@
       background: var(--red);
       padding: 0rem 0.3rem;
       border-radius: 0.25rem;
-      margin: 0.5rem 0;
+      font-size: .7rem;
+      margin-bottom: .3rem;
       transition: all ease .1s;
 
       &:hover {
@@ -167,6 +172,23 @@
   flex-direction: column;
   width: 100%;
   margin-top: .5rem;
+
+  .instructions {
+    margin: 0.5rem 0;
+    color: white;
+    font-size: 1rem;
+    letter-spacing: .1rem;
+
+    .mediasTitle {
+      font-weight: 700;
+      margin-top: .5rem;
+    }
+
+    p+p {
+      margin-top: .3rem;
+    }
+  }
+
 
   input {
     font-weight: 400;
@@ -201,8 +223,73 @@
   }
 }
 
+//Swiper styles
+
+.swiper {
+  width: 640px;
+  height: 210px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  top: 45%;
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  border-radius: .5rem;
+  color: red;
+  font-weight: 700;
+  outline: 0;
+  transition: background-color .2s ease, color .2s ease;
+
+  &::after {
+    font-size: 12px;
+  }
+}
+
+.swiper-pagination-bullet-active {
+  color: red;
+}
+
+.swiper-slide swiper-slide-dupl {
+  width: unset;
+}
+
 @media screen and (max-width: 980px) {
   .images {
+    width: 540px;
     // width: unset;
 
     .principalImg,
@@ -225,28 +312,45 @@
   }
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 620px) {
   .images {
-    width: 460px;
-
-    .principalImg,
-    .principalNewGameImg {
-      height: 280px;
-    }
-
-    .slider {
-      .slideContainer {
-        width: unset;
-      }
-
-    }
+    width: 420px;
   }
 
-}
-
-@media screen and (max-width: 490px) {
-  .images {
-    width: 280px;
+  .principalImg,
+  .principalNewGameImg {
+    height: 220px;
   }
-
 }
+
+@media screen and (max-width: 510px) {
+  .images {
+    width: 250px;
+  }
+}
+
+// @media screen and (max-width: 820px) {
+//   .images {
+//     width: 460px;
+
+//     .principalImg,
+//     .principalNewGameImg {
+//       height: 280px;
+//     }
+
+//     .slider {
+//       .slideContainer {
+//         width: unset;
+//       }
+
+//     }
+//   }
+
+// }
+
+// @media screen and (max-width: 490px) {
+//   .images {
+//     width: 280px;
+//   }
+
+// }
