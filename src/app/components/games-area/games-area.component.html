@@ -4,14 +4,7 @@
 </div>
 <div class="gamesArea" *ngIf="searchList">
   <div *ngIf="searchList.length > 0" class="gameList">
-    <a *ngFor="let searchGame of searchList" routerLink="/game/{{ searchGame._id }}">
-      <div class="game">
-        <img [src]="searchGame.photos[0].url" alt="">
-        <p class="title">{{ searchGame.title }}</p>
-        <p class="price">{{ searchGame.mediumPrice | currency }}</p>
-        <span>{{ searchGame.rating }}/10</span>
-      </div>
-    </a>
+    <app-game-list [gamesList]="searchList"></app-game-list>
   </div>
   <div *ngIf="searchList.length === 0">
     <p style="color: white;">No matches on this search...</p>

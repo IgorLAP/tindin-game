@@ -21,7 +21,6 @@ export class SearchComponent implements OnInit {
     this.activedRoute.queryParams
       .subscribe({
         next: (params) => {
-          console.log('oi')
           const { q } = params
           this.gamesList$ = this.gameService.searchGame(q)
         }
