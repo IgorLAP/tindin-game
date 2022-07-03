@@ -1,8 +1,8 @@
 <div class="container">
   <app-bread-crumb [gameTitle]="title"></app-bread-crumb>
   <div class="handle">
-    <app-img-spotlight *ngIf="!updateMode" [sliderUrls]="sliderUrls" (newMedia)="handleNewMedia($event)"
-      [newGame]="true">
+    <app-img-spotlight *ngIf="!updateMode" [sliderUrls]="sliderUrls" (deleteMedia)="handleDeleteMedia($event)"
+      (newMedia)="handleNewMedia($event)" [newGame]="true">
     </app-img-spotlight>
     <form #formGame="ngForm">
       <input *ngIf="!updateMode" placeholder="Enter game title" type="text" name="title" [(ngModel)]="title">
