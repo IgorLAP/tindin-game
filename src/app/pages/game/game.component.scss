@@ -234,3 +234,11 @@ h2 {
     flex-direction: column;
   }
 }
+
+@media screen and (max-width: 460px) {
+  .custom-select {
+    select {
+      width: 250px;
+    }
+  }
+}

@@ -1,4 +1,3 @@
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,10 +16,11 @@ import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
 })
 export class GameComponent implements OnInit {
 
-  @ViewChild('selectVote', { static: false }) selectVote!: ElementRef
+  selectVoteRef!: ElementRef<HTMLSelectElement>
+  @ViewChild('selectVote') set selectRef(elRef: ElementRef) { }
   isLogged!: boolean
   game!: Game
-  sliderUrls: SafeResourceUrl[] = []
+  sliderUrls: string[] = []
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -28,7 +28,6 @@ export class GameComponent implements OnInit {
     private toast: ToastrService,
     private route: Router,
     private spinner: NgxSpinnerService,
-    private domSanitazer: DomSanitizer,
     private authService: AuthService
   ) {
     this.isLogged = this.authService.isLogged
@@ -41,13 +40,15 @@ export class GameComponent implements OnInit {
         next: (response) => {
           const formattedGame = gameExhibitionFormatter(response)
           this.game = formattedGame
-          formattedGame.photos.map(photo => this.sliderUrls.push(photo.url))
+          formattedGame.photos.map(
+            photo => this.sliderUrls.push(photo.url)
+          )
           formattedGame.videos.map(video => {
-            if (video.url.includes('watch')) {
-              const embedUrl = video.url.replace('watch?v=', 'embed/')
-              this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(embedUrl))
-            } else {
-              this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(video.url))
+            const videoUrlTypes = ['/embed/', 'watch?v=']
+            for (let i in videoUrlTypes) {
+              if (video.url.includes(videoUrlTypes[i])) {
+                this.sliderUrls.push(video.url.split(videoUrlTypes[i])[1])
+              }
             }
           })
         },
@@ -60,14 +61,14 @@ export class GameComponent implements OnInit {
   }
 
   voteNow() {
-    if (!this.selectVote.nativeElement.value) {
+    if (!this.selectVoteRef.nativeElement.value) {
       this.toast.warning('Rate the game first')
       return;
     } else {
       this.spinner.show()
       const data = {
         id: this.activedRoute.snapshot.params['id'],
-        rate: Number(this.selectVote.nativeElement.value)
+        rate: Number(this.selectVoteRef.nativeElement.value)
       }
       this.gameService.rateGame(data.id, data.rate)
         .subscribe({
