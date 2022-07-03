@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
   searchList!: Game[] | [] | null
   isLogged!: boolean
   imagesBanner: { name: string, url: string }[] = [
-    { name: '', url: 'assets/banner0.png' }
+    { name: '', url: 'assets/banner0.jpg' }
   ]
   actualSlide = 0
   gamesList!: Game[]
