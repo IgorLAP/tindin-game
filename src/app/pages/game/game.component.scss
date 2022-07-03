@@ -237,7 +237,15 @@ h2 {
 
 @media screen and (max-width: 510px) {
   .container {
-    padding: 1rem .5rem;
+    // padding: 1rem .5rem;
+    padding: 1rem;
   }
+}
 
+@media screen and (max-width: 460px) {
+  .custom-select {
+    select {
+      width: 250px;
+    }
+  }
 }

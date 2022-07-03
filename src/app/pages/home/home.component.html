@@ -1,14 +1,16 @@
-<app-banner *ngIf="!isLogged" [actualSlide]="actualSlide" [imagesBanner]="imagesBanner"></app-banner>
-<div *ngIf="isLogged" class="loggedUserArea">
-  <div class="header">
-    <h1>Games</h1>
-    <p>Games manager portal</p>
+<span *ngIf="gamesList">
+  <app-banner *ngIf="!isLogged" [actualSlide]="actualSlide" [imagesBanner]="imagesBanner"></app-banner>
+  <div *ngIf="isLogged" class="loggedUserArea">
+    <div class="header">
+      <h1>Games</h1>
+      <p>Games manager portal</p>
+    </div>
+    <div class="actions">
+      <input type="text" #searchInput placeholder="Search from...">
+      <a routerLink="/game">New Game</a>
+    </div>
   </div>
-  <div class="actions">
-    <input type="text" #searchInput placeholder="Search from...">
-    <a routerLink="/game">New Game</a>
-  </div>
-</div>
-<app-games-area [hasMoreGames]="hasMoreGames" (viewMoreGames)="onViewMoreGames($event)" [searchList]="searchList"
-  [gamesList]="gamesList">
-</app-games-area>
+  <app-games-area [hasMoreGames]="hasMoreGames" (viewMoreGames)="onViewMoreGames($event)" [searchList]="searchList"
+    [gamesList]="gamesList">
+  </app-games-area>
+</span>

@@ -76,8 +76,8 @@ header {
   margin-top: 1rem;
 
   .profileIcon {
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     filter: invert(100%);
   }
 }
@@ -143,8 +143,12 @@ header {
   .profileBtn {
     padding: 1.2rem;
     border: 2px solid var(--white);
-    height: 20px;
-    width: 20px;
+
+    .profileIcon {
+      height: 25px;
+      width: 25px;
+      filter: invert(100%);
+    }
 
     img {
       height: 30px;

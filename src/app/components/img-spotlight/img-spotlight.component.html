@@ -2,9 +2,6 @@
   <div [class.spotlightImage]="inSpotlight" class="poster">
     <img *ngIf="!newGame" class="principalImg" #imgSpotlight (click)="putOnSpotlight()" [src]="sliderUrls[0]"
       alt="highlight game">
-    <img class="principalNewGameImg" *ngIf="newGame"
-      [src]="sliderUrls.length > 0 && isString(sliderUrls[0]) ? sliderUrls[0]  : 'assets/utils/placeholder-poster.png'"
-      alt="">
     <div class="hideBtn" [class.closeBtn]="inSpotlight" (click)="inSpotlight = false">X</div>
   </div>
   <div *ngIf="!newGame && sliderUrls.length > 1" class="slider">
@@ -14,11 +11,11 @@
         clickable: true
       }" [navigation]="true" class="mySwiper">
         <ng-template swiperSlide *ngFor=" let url of sliderUrls">
-          <div (click)="slideImages(url)">
-            <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
-            <iframe *ngIf="!isString(url)" [src]="url"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-              width="210" height="210" frameborder="0"></iframe>
+          <div (click)="changeImgSpotlight(url)">
+            <img *ngIf="isImg(url)" class="slideImg" [src]="url" alt="">
+            <vm-player *ngIf="!isImg(url)" controls>
+              <vm-youtube cookies="true" [videoId]="url"></vm-youtube>
+            </vm-player>
           </div>
         </ng-template>
       </swiper>
@@ -27,8 +24,8 @@
   <!-- <div *ngIf="newGame && sliderUrls.length > 0" class="slider">
     <div #marginChange [style.width]="sliderWidth" class="slideContainer">
       <div class="slide" *ngFor=" let url of sliderUrls">
-        <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
-        <iframe *ngIf="!isString(url)" [src]="url" width="120" height="120" frameborder="0"></iframe>
+        <img *ngIf="isImg(url)" class="slideImg" [src]="url" alt="">
+        <iframe *ngIf="!isImg(url)" [src]="url" width="120" height="120" frameborder="0"></iframe>
       </div>
     </div>
     <div class="arrows">
@@ -40,9 +37,41 @@
       </div>
     </div>
   </div> -->
+  <!-- <div class="newGameMedia" *ngIf="newGame">
+    <swiper slidesPerView="auto" [spaceBetween]="spaceBetween" [slidesPerGroup]="slidesPerGroup"
+      [slidesPerView]="slidesPerView" [loop]="false" [loopFillGroupWithBlank]="true" [pagination]="{
+    clickable: true
+  }" [navigation]="true" class="mySwiper">
+      <ng-template *ngFor=" let url of sliderUrls">
+        <img *ngIf="isImg(url)" class="slideImg" [src]="url" alt="">
+        <vm-player *ngIf="!isImg(url)" controls>
+          <vm-youtube cookies="true" [videoId]="url"></vm-youtube>
+        </vm-player>
+      </ng-template>
+    </swiper>
+  </div> -->
+  <!-- <div #arrows class="arrows">
+      <div (click)="handleGoLeft()" class="leftArrow">
+        <img src="assets/utils/left-arrow.svg" alt="">
+      </div>
+      <div (click)="handleGoRight()" class="rightArrow">
+        <img src="assets/utils/right-arrow.svg" alt="">
+      </div>
+    </div> -->
+  <!-- </div> -->
   <div class="newGameMedia" *ngIf="newGame">
+    <div class="instructions">
+      <p>Press 'Enter' to delete media</p>
+      <p>For videos use name 'GAMEPLAY', 'TRAILER' or 'CUSTOM'</p>
+      <p class="mediasTitle">Medias: </p>
+    </div>
+    <div class="tagContainer" *ngIf="sliderUrls.length > 0">
+      <div class="savedTags">
+        <p (click)="deleteMediaEventEmit(url)" class="tag" *ngFor="let url of sliderUrls">{{ url }}</p>
+      </div>
+    </div>
     <input #nameInput type="text" placeholder="Media name">
     <input #urlInput type="text" placeholder="URL">
-    <button class="addBtn" (click)="emitEventNewMedia(nameInput.value, urlInput.value)" type="button">Add</button>
+    <button class="addBtn" (click)="newMediaEventEmit(nameInput.value, urlInput.value)" type="button">Add</button>
   </div>
 </div>

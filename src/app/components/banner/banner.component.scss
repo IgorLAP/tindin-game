@@ -7,7 +7,7 @@
   position: relative;
 
   .bannerList {
-    width: 100vw;
+    width: 90vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +20,8 @@
 
     h2 {
       font-size: 4rem;
-      text-shadow: 1px 0 10px #ccc;
+      letter-spacing: .3rem;
+      text-shadow: 1px 0 10px var(--black);
       text-transform: uppercase;
       position: absolute;
       bottom: 90px;
@@ -100,11 +101,17 @@
 
 @media screen and (max-width: 880px) {
   .bannerContainer {
+
+    .bannerList {
+      width: 80vw;
+    }
+
     .image {
       height: 380px;
 
       h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        bottom: 60px;
       }
     }
   }
