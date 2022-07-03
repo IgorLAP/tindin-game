@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 
 import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter';
@@ -14,9 +14,31 @@ import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
+export class HomeComponent implements OnInit, DoCheck {
 
-  @ViewChild('searchInput') searchInput!: ElementRef
+  searchInputRef!: ElementRef<HTMLInputElement>
+  @ViewChild('searchInput') set inputRef(elRef: ElementRef<HTMLInputElement>) {
+    if (elRef) {
+      this.searchInputRef = elRef
+      fromEvent(this.searchInputRef.nativeElement, 'keyup')
+        .pipe(
+          filter(Boolean),
+          debounceTime(500),
+          distinctUntilChanged(),
+          tap(() => {
+            const query = this.searchInputRef.nativeElement.value
+            if (query) {
+              this.gameService.searchGame(query)
+                .subscribe(response => {
+                  this.searchList = response.map(game => gameExhibitionFormatter(game))
+                })
+            } else {
+              this.searchList = null
+            }
+          })
+        ).subscribe()
+    }
+  }
   searchList!: Game[] | [] | null
   isLogged!: boolean
   imagesBanner: { name: string, url: string }[] = [
@@ -56,12 +78,16 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
     }).subscribe({
       next: (response) => {
         this.imagesBanner.pop()
-        response.games.map(game => {
-          this.imagesBanner.push({
-            name: game.title,
-            url: game.photos[0].url
-          })
-        })
+        for (let i in response.games) {
+          if (Number(i) < 3) {
+            this.imagesBanner.push({
+              name: response.games[i].title,
+              url: response.games[i].photos[0].url
+            })
+          } else {
+            break;
+          }
+        }
       },
       error: (err) => {
         const { message, name } = returnGameRoutesError(err)
@@ -69,28 +95,6 @@ export class HomeComponent implements OnInit, AfterViewInit, DoCheck {
         this.spinner.hide()
       }
     })
-  }
-
-  ngAfterViewInit(): void {
-    if (this.isLogged) {
-      fromEvent(this.searchInput.nativeElement, 'keyup')
-        .pipe(
-          filter(Boolean),
-          debounceTime(500),
-          distinctUntilChanged(),
-          tap(() => {
-            const query = this.searchInput.nativeElement.value
-            if (query) {
-              this.gameService.searchGame(query)
-                .subscribe(response =>
-                  this.searchList = response.map(game => gameExhibitionFormatter(game))
-                )
-            } else {
-              this.searchList = null
-            }
-          })
-        ).subscribe()
-    }
   }
 
   ngDoCheck(): void {

@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "^14.0.3",
     "@angular/router": "^14.0.3",
     "@sweetalert2/ngx-sweetalert2": "^11.0.0",
+    "@vime/angular": "^5.3.1",
+    "@vime/core": "^5.3.1",
     "ngx-cookie-service": "^14.0.1",
     "ngx-spinner": "^14.0.0",
     "ngx-toastr": "^15.0.0",

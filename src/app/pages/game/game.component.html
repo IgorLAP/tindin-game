@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="game">
   <app-bread-crumb [gameTitle]="game.title"></app-bread-crumb>
   <div class="gameDetails">
     <app-img-spotlight [sliderUrls]="sliderUrls" [game]="game"></app-img-spotlight>
@@ -48,7 +48,8 @@
         <p class="mediumValue">{{ game.mediumPrice | currency }}</p>
         <p class="releaseDate">Release year: <time>{{ game.releaseYear }}</time></p>
         <div class="votingArea">
-          <button class="voteNow" [swal]="{ title: 'Confirm Vote?', showDenyButton: true, denyButtonText: 'No' }"
+          <button class="voteNow"
+            [swal]="{ title: 'Confirm Vote?', confirmButtonText: 'Yes', showDenyButton: true, denyButtonText: 'No', background: 'var(--background)', color: 'white', confirmButtonColor: 'green' }"
             (confirm)="voteNow()" type=" button">Vote Now</button>
           <div class="custom-select">
             <select #selectVote name="voting" id="voting">

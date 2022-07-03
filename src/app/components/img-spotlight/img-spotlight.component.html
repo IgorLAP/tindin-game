@@ -2,37 +2,18 @@
   <div [class.spotlightImage]="inSpotlight" class="poster">
     <img *ngIf="!newGame" class="principalImg" #imgSpotlight (click)="putOnSpotlight()" [src]="sliderUrls[0]"
       alt="highlight game">
-    <img class="principalNewGameImg" *ngIf="newGame"
-      [src]="sliderUrls.length > 0 && isString(sliderUrls[0]) ? sliderUrls[0]  : 'assets/utils/placeholder-poster.png'"
-      alt="">
     <div class="hideBtn" [class.closeBtn]="inSpotlight" (click)="inSpotlight = false">X</div>
   </div>
   <div *ngIf="!newGame && sliderUrls.length > 1" class="slider">
     <div #marginChange class="slideContainer">
-      <div (click)="slideImages(url)" class="slide" *ngFor=" let url of sliderUrls">
-        <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
-        <iframe *ngIf="!isString(url)" [src]="url"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="120"
-          height="120" frameborder="0"></iframe>
+      <div (click)="changeImgSpotlight(url)" class="slide" *ngFor=" let url of sliderUrls">
+        <img *ngIf="isImg(url)" class="slideImg" [src]="url" alt="">
+        <vm-player *ngIf="!isImg(url)" controls>
+          <vm-youtube cookies="true" [videoId]="url"></vm-youtube>
+        </vm-player>
       </div>
     </div>
-    <div class="arrows">
-      <div (click)="handleGoLeft()" class="leftArrow">
-        <img src="assets/utils/left-arrow.svg" alt="">
-      </div>
-      <div (click)="handleGoRight()" class="rightArrow">
-        <img src="assets/utils/right-arrow.svg" alt="">
-      </div>
-    </div>
-  </div>
-  <div *ngIf="newGame && sliderUrls.length > 0" class="slider">
-    <div #marginChange [style.width]="sliderWidth" class="slideContainer">
-      <div class="slide" *ngFor=" let url of sliderUrls">
-        <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
-        <iframe *ngIf="!isString(url)" [src]="url" width="120" height="120" frameborder="0"></iframe>
-      </div>
-    </div>
-    <div class="arrows">
+    <div #arrows class="arrows">
       <div (click)="handleGoLeft()" class="leftArrow">
         <img src="assets/utils/left-arrow.svg" alt="">
       </div>
@@ -42,8 +23,13 @@
     </div>
   </div>
   <div class="newGameMedia" *ngIf="newGame">
+    <div class="tagContainer" *ngIf="sliderUrls.length > 0">
+      <div class="savedTags">
+        <p (click)="deleteMediaEventEmit(url)" class="tag" *ngFor="let url of sliderUrls">{{ url }}</p>
+      </div>
+    </div>
     <input #nameInput type="text" placeholder="Media name">
     <input #urlInput type="text" placeholder="URL">
-    <button class="addBtn" (click)="emitEventNewMedia(nameInput.value, urlInput.value)" type="button">Add</button>
+    <button class="addBtn" (click)="newMediaEventEmit(nameInput.value, urlInput.value)" type="button">Add</button>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import {
   AfterContentChecked,
+  AfterContentInit,
   AfterViewChecked,
   ChangeDetectorRef,
   Component,
@@ -11,7 +12,6 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -26,8 +26,9 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
   @ViewChild('urlInput') urlInput!: ElementRef
   @ViewChild('nameInput') nameInput!: ElementRef
   @Input('newGame') newGame!: boolean
-  @Input('sliderUrls') sliderUrls!: string[] | SafeResourceUrl[]
+  @Input('sliderUrls') sliderUrls!: string[]
   @Output() newMedia = new EventEmitter()
+  @Output() deleteMedia = new EventEmitter()
   inSpotlight = false
   marginLeft = 0
   sliderWidth!: string
@@ -35,28 +36,27 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
   constructor(
     private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
-    private toast: ToastrService
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewChecked(): void {
-    this.sliderWidth = this.sliderUrls ? `${this.sliderUrls.length * 150}px` : '0px'
+    this.sliderWidth = this.sliderUrls ? `${this.sliderUrls.length * 180}px` : '0px'
     this.cdr.detectChanges()
   }
 
   handleGoLeft() {
     if (this.marginLeft < 0) {
-      this.marginLeft += 120
+      this.marginLeft += 180
       this.renderer.setStyle(this.marginChange.nativeElement, 'marginLeft', `${this.marginLeft}px`)
     }
   }
 
   handleGoRight() {
     const sliderWidth = Number(this.sliderWidth.split('px')[0])
-    this.marginLeft -= 120
+    this.marginLeft -= 180
     this.renderer.setStyle(this.marginChange.nativeElement, 'marginLeft', `${this.marginLeft}px`)
   }
 
@@ -79,29 +79,51 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
     return false
   }
 
-  isString(type: string | SafeResourceUrl): boolean { return typeof (type) === 'string' }
+  isImg(urlOrId: string): boolean {
+    const imgExtensions = ['jpg', 'png', 'jpeg']
+    for (let i in imgExtensions) {
+      if (urlOrId.includes(imgExtensions[i])) {
+        return true
+      }
+    }
+    return false
+  }
 
-  emitEventNewMedia(name: string, url: string) {
-    const valid = this.validateMedia(url)
+  deleteMediaEventEmit(url: string) {
+    const mediaType = this.isImg(url)
+    this.deleteMedia.emit({
+      img: mediaType ? true : false,
+      video: !mediaType ? true : false,
+      url
+    })
+  }
+
+  newMediaEventEmit(name: string, url: string) {
+    const isValid = this.validateMedia(url)
     if (name !== '') {
-      if (valid) {
-        if (name === 'GAMEPLAY' || name === 'TRAILER' || name === 'CUSTOM') {
+      if (isValid) {
+
+        if (this.isImg(url)) {
           this.newMedia.emit({
-            type: name,
-            url: url.replace('watch?v=', 'embed/')
+            name,
+            url
           })
           this.urlInput.nativeElement.value = ''
           this.nameInput.nativeElement.value = ''
           return;
         }
 
-        this.newMedia.emit({
-          name,
-          url
-        })
-        this.urlInput.nativeElement.value = ''
-        this.nameInput.nativeElement.value = ''
-        return;
+        if (name.toUpperCase() === 'GAMEPLAY' || name.toUpperCase() === 'TRAILER' || name.toUpperCase() === 'CUSTOM') {
+          this.newMedia.emit({
+            type: name.toUpperCase(),
+            url: url
+          })
+          this.urlInput.nativeElement.value = ''
+          this.nameInput.nativeElement.value = ''
+          return;
+        }
+
+        this.toast.error('For video use name GAMEPLAY, TRAILER or CUSTOM')
 
       } else {
         this.toast.error('Invalid format', 'Error')
@@ -111,9 +133,14 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  slideImages(url: string | SafeResourceUrl) {
-    this.imgSpotlight.nativeElement.src = url
-    this.inSpotlight = true
+  changeImgSpotlight(url: string) {
+    const isImg = this.isImg(url)
+    if (isImg) {
+      this.imgSpotlight.nativeElement.src = url
+      this.inSpotlight = true
+      return;
+    }
+    return;
   }
 
   putOnSpotlight() {

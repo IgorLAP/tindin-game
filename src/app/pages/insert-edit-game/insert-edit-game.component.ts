@@ -1,6 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -77,12 +76,11 @@ export class InsertEditGameComponent implements OnInit {
   highlight!: boolean
   photos: { name: string, url: string }[] = []
   videos: { type: 'TRAILER' | 'GAMEPLAY' | 'CUSTOM', url: string }[] = []
-  sliderUrls: SafeResourceUrl[] = []
+  sliderUrls: string[] = []
   updateMode = false
 
   constructor(
     private gameService: GameService,
-    private domSanitazer: DomSanitizer,
     private router: Router,
     private spinner: NgxSpinnerService,
     private toast: ToastrService,
@@ -212,21 +210,48 @@ export class InsertEditGameComponent implements OnInit {
 
   handleNewMedia(media: MediaTypes) {
     if (media.type) {
+      for (let i in this.videos) {
+        if (media.url === this.videos[i].url) {
+          this.toast.info('Media already included')
+          return;
+        }
+      }
       this.videos.push({
         type: media.type,
         url: media.url
       })
-      this.sliderUrls.push(this.domSanitazer.bypassSecurityTrustResourceUrl(media.url))
+      this.sliderUrls.push(media.url)
       return;
     }
 
     if (media.name) {
+      for (let i in this.photos) {
+        if (media.url === this.photos[i].url) {
+          this.toast.info('Media already included')
+          return;
+        }
+      }
       this.photos.push({
         name: media.name,
         url: media.url
       })
       this.sliderUrls.push(media.url)
       return;
+    }
+  }
+
+  handleDeleteMedia(event: { img: boolean, video: boolean, url: string }) {
+    const newSliderUrls = this.sliderUrls.filter(item => item !== event.url)
+    this.sliderUrls = newSliderUrls
+
+    if (event.video) {
+      const newVideos = this.videos.filter(item => item.url !== event.url)
+      this.videos = newVideos
+    }
+
+    if (event.img) {
+      const newPhotos = this.photos.filter(item => item.url !== event.url)
+      this.photos = newPhotos
     }
   }
 

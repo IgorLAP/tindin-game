@@ -21,7 +21,8 @@ import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.compon
 import { ImgSpotlightComponent } from './components/img-spotlight/img-spotlight.component';
 import { SearchComponent } from './pages/search/search.component';
 import { GameListComponent } from './components/game-list/game-list.component';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { VimeModule } from '@vime/angular';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    VimeModule,
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot()
   ],
