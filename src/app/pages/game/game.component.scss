@@ -234,3 +234,10 @@ h2 {
     flex-direction: column;
   }
 }
+
+@media screen and (max-width: 510px) {
+  .container {
+    padding: 1rem .5rem;
+  }
+
+}

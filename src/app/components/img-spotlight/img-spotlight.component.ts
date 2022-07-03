@@ -1,5 +1,4 @@
 import {
-  AfterContentChecked,
   AfterViewChecked,
   ChangeDetectorRef,
   Component,
@@ -8,16 +7,21 @@ import {
   Input,
   OnInit,
   Output,
-  Renderer2,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { filter, distinctUntilChanged, fromEvent } from 'rxjs';
+import SwiperCore, { Navigation, Pagination } from 'swiper'
+
+SwiperCore.use([Pagination, Navigation]);
 
 @Component({
   selector: 'app-img-spotlight',
   templateUrl: './img-spotlight.component.html',
-  styleUrls: ['./img-spotlight.component.scss']
+  styleUrls: ['./img-spotlight.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
 
@@ -32,32 +36,37 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
   marginLeft = 0
   sliderWidth!: string
 
+  //Swiper controls
+  spaceBetween = 30
+  slidesPerGroup = 1
+  slidesPerView = 1
+
   constructor(
-    private renderer: Renderer2,
     private cdr: ChangeDetectorRef,
     private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
+    fromEvent(window, 'resize')
+      .pipe(
+        filter(Boolean),
+        distinctUntilChanged(),
+      ).subscribe(() => {
+        if (innerWidth < 980 && innerWidth > 619) {
+          this.slidesPerGroup = 2
+          this.slidesPerView = 2
+        }
 
+        if (innerWidth < 620 || innerWidth > 980) {
+          this.slidesPerGroup = 1
+          this.slidesPerView = 1
+        }
+      })
   }
 
   ngAfterViewChecked(): void {
     this.sliderWidth = this.sliderUrls ? `${this.sliderUrls.length * 150}px` : '0px'
     this.cdr.detectChanges()
-  }
-
-  handleGoLeft() {
-    if (this.marginLeft < 0) {
-      this.marginLeft += 120
-      this.renderer.setStyle(this.marginChange.nativeElement, 'marginLeft', `${this.marginLeft}px`)
-    }
-  }
-
-  handleGoRight() {
-    const sliderWidth = Number(this.sliderWidth.split('px')[0])
-    this.marginLeft -= 120
-    this.renderer.setStyle(this.marginChange.nativeElement, 'marginLeft', `${this.marginLeft}px`)
   }
 
   validateMedia(url: string) {

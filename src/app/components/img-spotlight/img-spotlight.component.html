@@ -9,23 +9,22 @@
   </div>
   <div *ngIf="!newGame && sliderUrls.length > 1" class="slider">
     <div #marginChange class="slideContainer">
-      <div (click)="slideImages(url)" class="slide" *ngFor=" let url of sliderUrls">
-        <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
-        <iframe *ngIf="!isString(url)" [src]="url"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="120"
-          height="120" frameborder="0"></iframe>
-      </div>
-    </div>
-    <div class="arrows">
-      <div (click)="handleGoLeft()" class="leftArrow">
-        <img src="assets/utils/left-arrow.svg" alt="">
-      </div>
-      <div (click)="handleGoRight()" class="rightArrow">
-        <img src="assets/utils/right-arrow.svg" alt="">
-      </div>
+      <swiper slidesPerView="auto" [spaceBetween]="spaceBetween" [slidesPerGroup]="slidesPerGroup"
+        [slidesPerView]="slidesPerView" [loop]="false" [loopFillGroupWithBlank]="true" [pagination]="{
+        clickable: true
+      }" [navigation]="true" class="mySwiper">
+        <ng-template swiperSlide *ngFor=" let url of sliderUrls">
+          <div (click)="slideImages(url)">
+            <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
+            <iframe *ngIf="!isString(url)" [src]="url"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+              width="210" height="210" frameborder="0"></iframe>
+          </div>
+        </ng-template>
+      </swiper>
     </div>
   </div>
-  <div *ngIf="newGame && sliderUrls.length > 0" class="slider">
+  <!-- <div *ngIf="newGame && sliderUrls.length > 0" class="slider">
     <div #marginChange [style.width]="sliderWidth" class="slideContainer">
       <div class="slide" *ngFor=" let url of sliderUrls">
         <img *ngIf="isString(url)" class="slideImg" [src]="url" alt="">
@@ -40,7 +39,7 @@
         <img src="assets/utils/right-arrow.svg" alt="">
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="newGameMedia" *ngIf="newGame">
     <input #nameInput type="text" placeholder="Media name">
     <input #urlInput type="text" placeholder="URL">

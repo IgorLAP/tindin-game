@@ -75,7 +75,7 @@
     justify-content: start;
     align-items: center;
     width: 100%;
-    height: 135px;
+    height: 220px;
     width: 380px;
     overflow-x: hidden;
     margin: 1rem;
@@ -97,8 +97,8 @@
 
     .slideImg {
       cursor: pointer;
-      height: 120px;
-      width: 120px;
+      height: 210px;
+      width: 210px;
       object-fit: cover;
       object-position: center;
 
@@ -176,9 +176,73 @@
   }
 }
 
+//Swiper styles
+
+.swiper {
+  width: 640px;
+  height: 210px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  top: 45%;
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  border-radius: .5rem;
+  color: red;
+  font-weight: 700;
+  outline: 0;
+  transition: background-color .2s ease, color .2s ease;
+
+  &::after {
+    font-size: 12px;
+  }
+}
+
+.swiper-pagination-bullet-active {
+  color: red;
+}
+
+.swiper-slide swiper-slide-dupl {
+  width: unset;
+}
+
 @media screen and (max-width: 980px) {
   .images {
-    width: unset;
+    width: 540px;
 
     .principalImg,
     .principalNewGameImg {
@@ -197,5 +261,22 @@
       right: 10px;
       top: 15px;
     }
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .images {
+    width: 420px;
+  }
+
+  .principalImg,
+  .principalNewGameImg {
+    height: 220px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .images {
+    width: 250px;
   }
 }
