@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  font-weight: 700;
+  padding: 2rem 0;
+
+  img {
+    margin-bottom: .5rem;
+    height: 120px;
+  }
+
+  span {
+    color: var(--gray-300);
+  }
+}

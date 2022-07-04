@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SearchComponent } from './pages/search/search.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'game/:id', component: GameComponent },
   { path: 'game', component: InsertEditGameComponent },
   { path: 'edit/:id', component: InsertEditGameComponent },
-  { path: 'search', component: SearchComponent }
+  { path: 'search', component: SearchComponent },
+  { path: '**', component: NotFoundComponent }
 ]
 
 @NgModule({
