@@ -26,7 +26,8 @@
       </div>
       <div *ngIf="!updateMode" class="field checkbox-field">
         <label for="highlight">Highlight: </label>
-        <input type="checkbox" name="highlight" value="highlight" [(ngModel)]="highlight" />
+        <input [disabled]="photos.length === 0" type="checkbox" name="highlight" value="highlight"
+          [(ngModel)]="highlight" />
       </div>
       <div class="field">
         <label for="description">Description: </label>
