@@ -137,17 +137,17 @@
   }
 }
 
-.tagContainer {
+.mediasContainer {
   width: 100%;
   overflow: hidden;
 
-  .savedTags {
+  .savedMedias {
     width: fit-content;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     margin: .5rem 0;
 
-    .tag {
+    .media {
       cursor: pointer;
       color: var(--white);
       background: var(--red);

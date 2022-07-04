@@ -24,12 +24,12 @@
   <div *ngIf="newGame" class="newGameMedia">
     <div class="instructions">
       <p>Press 'Enter' to delete media</p>
-      <p>For videos use name 'GAMEPLAY', 'TRAILER' or 'CUSTOM'</p>
+      <p>For videos use name 'GAMEPLAY', 'TRAILER' or 'CUSTOM' and URL's from youtube</p>
       <p class="mediasTitle">Medias: </p>
     </div>
-    <div class="tagContainer" *ngIf="sliderUrls.length > 0">
-      <div class="savedTags">
-        <p (click)="deleteMediaEventEmit(url)" class="tag" *ngFor="let url of sliderUrls">{{ url }}</p>
+    <div class="mediasContainer" *ngIf="sliderUrls.length > 0">
+      <div class="savedMedias">
+        <p (click)="deleteMediaEventEmit(url)" class="media" *ngFor="let url of sliderUrls">{{ url }}</p>
       </div>
     </div>
     <input #nameInput type="text" placeholder="Media name">

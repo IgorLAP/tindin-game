@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { AfterContentChecked, AfterViewChecked, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,12 +11,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class HeaderComponent implements OnInit, DoCheck {
 
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>
   isLogged!: boolean;
 
   constructor(
     private authService: AuthService,
     private cookie: CookieService,
-    private route: Router,
+    private router: Router,
     private spinner: NgxSpinnerService
   ) {
     this.isLogged = this.authService.isLogged
@@ -32,14 +33,21 @@ export class HeaderComponent implements OnInit, DoCheck {
     }
   }
 
+  handleSearch() {
+    const query = this.searchInput.nativeElement.value
+    if (query) {
+      this.router.navigate(['/search'], { queryParams: { q: query } });
+    }
+  }
+
   logout() {
     if (this.isLogged) {
       this.spinner.show()
       setTimeout(() => {
         this.cookie.delete('auth.token', '/')
         this.spinner.hide()
-        this.route.navigateByUrl('/', { skipLocationChange: true })
-          .then(() => this.route.navigate(['/']))
+        this.router.navigateByUrl('/', { skipLocationChange: true })
+          .then(() => this.router.navigate(['/']))
       }, 2000)
     }
   }
