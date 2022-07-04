@@ -1,7 +1,7 @@
 <div class="gameList" *ngIf="gamesList">
   <a *ngFor="let game of gamesList" routerLink="/game/{{ game._id }}">
     <div class="game">
-      <img [src]="game.photos[0] ? game.photos[0].url : '/assets/utils/placeholder-poster.png'" alt="">
+      <img [src]="game.photos[0]?.url ? game.photos[0].url : '/assets/utils/placeholder-poster.png'" alt="">
       <p class="title">{{ game.title }}</p>
       <p class="price">{{ game.mediumPrice ? (game.mediumPrice | currency ) : 'Price unavailable' }}</p>
       <span>{{ game.rating }}/10</span>
