@@ -18,8 +18,6 @@
 
 Aplicação possível de visualizar informações de jogos onde o usuário final tem a capacidade também de votar, quanto ao usuário administrador tem a capacidade de efeturar login e já no sistema cadastrar, editar, excluir e atualizar games.
 
-Seguir o layout propost no figma, porém sinta-se livre para escolher as cores de maneira livre, assim como as informações dos gráficos
-
 <div id="tech">
 
   ## Tecnologias 
@@ -28,8 +26,6 @@ Seguir o layout propost no figma, porém sinta-se livre para escolher as cores d
 > Desenvolvido com:
 
 - Angular 14
-- TypeScript
-- SCSS
 
 > Bibliotecas utilizadas:
 
