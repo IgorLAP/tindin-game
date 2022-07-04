@@ -55,11 +55,11 @@
 
   .principalImg,
   .principalNewGameImg {
-
     width: 100%;
     height: 580px;
     object-fit: cover;
     object-position: center;
+    transition: filter ease-out .2s;
   }
 
   .principalImg {
@@ -101,6 +101,7 @@
       width: 210px;
       object-fit: cover;
       object-position: center;
+      transition: filter ease-out .2s;
 
       &:hover {
         filter: brightness(.7);
@@ -322,5 +323,18 @@
 @media screen and (max-width: 510px) {
   .images {
     width: 250px;
+  }
+
+  .slideImg {
+    height: 180px;
+    width: 180px;
+  }
+
+  .swiper-button-prev {
+    left: 0;
+  }
+
+  .swiper-button-next {
+    right: 0;
   }
 }

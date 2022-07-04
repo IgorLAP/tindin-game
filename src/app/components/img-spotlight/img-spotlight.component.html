@@ -1,6 +1,6 @@
 <div class="images">
   <div *ngIf="!newGame" [class.spotlightImage]="inSpotlight" class="poster">
-    <img #imgSpotlight (click)="changeImgOnSpotlight(sliderUrls[0])" class="principalImg"
+    <img #imgSpotlight (click)="changeImgOnSpotlight(imgSpotlight.src)" class="principalImg"
       [src]="sliderUrls[0] ?? '/assets/utils/placeholder-poster.png'" alt="highlight game">
     <div class="hideBtn" [class.closeBtn]="inSpotlight" (click)="inSpotlight = false">X</div>
   </div>
