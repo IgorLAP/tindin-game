@@ -17,8 +17,8 @@ interface ListGamesApiResponse {
 }
 
 interface RateGameApiResponse {
-  game: string;
-  rating: number;
+  success: true;
+  ratingUpdated: number;
   totalVotes: number;
 }
 
@@ -74,7 +74,7 @@ export class GameService {
     let token = this.cookie.get('auth.token')
     let headers = new HttpHeaders()
       .set('x-api-key', token)
-    return this.http.put<Game>(`${this.baseApiURL}games`, { ...updateFields }, { headers })
+    return this.http.put<Game>(`${this.baseApiURL}/games`, { ...updateFields }, { headers })
   }
 
   searchGame(query: string): Observable<Game[] | []> {

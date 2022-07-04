@@ -78,7 +78,7 @@ export class GameComponent implements OnInit {
         .subscribe({
           next: () => {
             this.spinner.hide()
-            this.toast.success('Your vote has been counted', 'Thank you')
+            this.toast.success('Thank You', 'Voted')
             this.route.navigateByUrl('/', { skipLocationChange: true })
               .then(() => this.route.navigate([`/game/${data.id}`]))
           },
