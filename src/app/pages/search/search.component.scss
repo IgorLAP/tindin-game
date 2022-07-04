@@ -1,6 +1,11 @@
 .container {
   padding: 1rem;
   text-align: center;
+  color: var(--white);
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .notFound {

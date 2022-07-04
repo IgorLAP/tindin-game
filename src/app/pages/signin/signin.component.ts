@@ -58,7 +58,7 @@ export class SigninComponent implements OnInit {
           next: (response) => {
             this.spinner.hide()
             this.cookieService.set('auth.token', response.token, (60 * 60 * 24), '/')
-            this.toast.success('Login succeeded', 'Welcome')
+            this.toast.success('', 'Welcome')
             this.router.navigate(['/'])
           },
           error: (err) => {

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { takeWhile, timer } from 'rxjs';
+import { takeWhile, timer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-banner',
@@ -9,7 +9,7 @@ import { takeWhile, timer } from 'rxjs';
 export class BannerComponent implements OnInit, OnDestroy {
 
   @Input() actualSlide: number = 0
-  @Input() imagesBanner!: { name: string, url: string }[]
+  @Input() imagesBanner!: { name: string, url: string, _id: string }[]
   aliveComponent = true;
 
   constructor() {
