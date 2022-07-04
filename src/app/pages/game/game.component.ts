@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter';
 
 import { Game } from 'src/app/interfaces/Game';
 import { GameService } from 'src/app/services/game.service';
@@ -17,7 +16,11 @@ import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
 export class GameComponent implements OnInit {
 
   selectVoteRef!: ElementRef<HTMLSelectElement>
-  @ViewChild('selectVote') set selectRef(elRef: ElementRef) { }
+  @ViewChild('selectVote') set selectRef(elRef: ElementRef<HTMLSelectElement>) {
+    if (elRef) {
+      this.selectVoteRef = elRef
+    }
+  }
   isLogged!: boolean
   game!: Game
   sliderUrls: string[] = []
@@ -34,16 +37,16 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.spinner.show()
     const id = this.activedRoute.snapshot.params['id']
     this.gameService.getGame(id)
       .subscribe({
         next: (response) => {
-          const formattedGame = gameExhibitionFormatter(response)
-          this.game = formattedGame
-          formattedGame.photos.map(
+          this.game = response
+          response.photos.map(
             photo => this.sliderUrls.push(photo.url)
           )
-          formattedGame.videos.map(video => {
+          response.videos.map(video => {
             const videoUrlTypes = ['/embed/', 'watch?v=']
             for (let i in videoUrlTypes) {
               if (video.url.includes(videoUrlTypes[i])) {
@@ -51,6 +54,7 @@ export class GameComponent implements OnInit {
               }
             }
           })
+          this.spinner.hide()
         },
         error: (err) => {
           const { message, name } = returnGameRoutesError(err)
