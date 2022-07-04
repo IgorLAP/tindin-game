@@ -1,4 +1,4 @@
-<span *ngIf="gamesList">
+<div *ngIf="gamesList">
   <app-banner *ngIf="!isLogged" [actualSlide]="actualSlide" [imagesBanner]="imagesBanner"></app-banner>
   <div *ngIf="isLogged" class="loggedUserArea">
     <div class="header">
@@ -10,7 +10,8 @@
       <a routerLink="/game">New Game</a>
     </div>
   </div>
-  <app-games-area [hasMoreGames]="hasMoreGames" (viewMoreGames)="onViewMoreGames($event)" [searchList]="searchList"
-    [gamesList]="gamesList">
+  <app-games-area [class.onSearch]="onSearch" [hasMoreGames]="hasMoreGames" (viewMoreGames)="onViewMoreGames($event)"
+    [searchList]="searchList" [gamesList]="gamesList">
   </app-games-area>
-</span>
+</div>
+<span (click)="handleGoUp()" [class.showGoUp]="showGoUpBtn" class="goUpBtn">^</span>
