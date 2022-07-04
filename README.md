@@ -1,27 +1,89 @@
-# TindinGame
+# 🎮 TINDIN GAME | Igor Pedrosa
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
+<details>
+  <summary><h3>Índice</h3></summary>
+  <ul style="list-style-type:disc">
+    <li><a href="#requests">Requisitos</a></li>
+    <li><a href="#tech">Tecnologias</a></li>
+    <li><a href="#clone">Clonando o repositório</a></li>
+    <li><a href="#locally">Rodando localmente</a></li>
+    <li><a href="#deploy">Deploy</a></li>
+  </ul>
+</details>
 
-## Development server
+<div id="requests">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Requisitos
+</div>
 
-## Code scaffolding
+Aplicação possível de visualizar informações de jogos onde o usuário final tem a capacidade também de votar, quanto ao usuário administrador tem a capacidade de efeturar login e já no sistema cadastrar, editar, excluir e atualizar games.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Seguir o layout propost no figma, porém sinta-se livre para escolher as cores de maneira livre, assim como as informações dos gráficos
 
-## Build
+<div id="tech">
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  ## Tecnologias 
+</div>
 
-## Running unit tests
+> Desenvolvido com:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Angular 14
+- TypeScript
+- SCSS
 
-## Running end-to-end tests
+> Bibliotecas utilizadas:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- vime
+- ngx-cookie-service
+- ngx-spinner
+- ngx-toastr
+- sweetalert2
 
-## Further help
+> Deploy:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Netlify
+
+
+<div id="clone">
+
+## Clonando o repositório
+</div>
+
+
+execute no terminal o seguinte comando:
+```bash
+git clone https://github.com/IgorLAP/tindin-game.git
+```
+
+<div id="locally">
+
+## Rodando localmente
+</div>
+
+vá ao diretorio clonado ou no próprio terminal execute o comando: 
+```bash
+ cd tindin-game
+```
+
+na pasta em questão instale as dependências necessárias:
+```bash
+ npm install
+```
+
+após a instalação execute o comando a seguir para iniciar o servidor local:
+```bash
+ npm run dev or ng s 
+```
+
+a aplicação estará disponível no endereço:
+```bash
+ http://localhost:4200/
+```
+
+
+<div id="deploy">
+
+## Deploy
+</div>
+
+Acesse a página hospedada no Netlify [Igor Pedrosa - FrontEnd Technical Challenge](https://tindin-game.netlify.app)
