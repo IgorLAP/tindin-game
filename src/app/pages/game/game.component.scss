@@ -64,7 +64,7 @@ app-bread-crumb {
 
 .headLine {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   color: var(--white);
 
@@ -243,7 +243,6 @@ h2 {
 
 @media screen and (max-width: 510px) {
   .container {
-    // padding: 1rem .5rem;
     padding: 1rem;
   }
 }

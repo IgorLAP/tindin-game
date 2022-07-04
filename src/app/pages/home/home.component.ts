@@ -64,14 +64,17 @@ export class HomeComponent implements OnInit, DoCheck {
       next: (response) => {
         this.imagesBanner.pop()
         for (let i in response.games) {
-          if (Number(i) < 3) {
-            this.imagesBanner.push({
-              name: response.games[i].title,
-              url: response.games[i].photos[0].url,
-              _id: response.games[i]._id
-            })
-          } else {
-            break;
+          const actualGame = response.games[i]
+          if (actualGame.photos[0].url) {
+            if (Number(i) < 3) {
+              this.imagesBanner.push({
+                name: actualGame.title,
+                url: actualGame.photos[0].url,
+                _id: actualGame._id
+              })
+            } else {
+              break;
+            }
           }
         }
       },

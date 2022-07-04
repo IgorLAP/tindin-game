@@ -7,20 +7,20 @@ export interface Game {
   description: string;
   resume?: string;
   launchDate?: Date;
-  highlight: boolean;
+  highlight?: boolean;
   rating?: number;
   totalVotes?: number;
   photos: {
-    name: string;
-    url: string
+    name?: string;
+    url?: string
   }[] | [];
   videos: {
-    type: 'TRAILER' | 'GAMEPLAY' | 'CUSTOM';
-    url: string;
+    type?: 'TRAILER' | 'GAMEPLAY' | 'CUSTOM';
+    url?: string;
   }[] | [];
   mediumPrice?: number;
   releaseYear?: number;
-  genres?: Genre[];
-  platforms?: Platform[];
+  genres?: Genre[] | [];
+  platforms?: Platform[] | [];
   tags?: string[];
 }

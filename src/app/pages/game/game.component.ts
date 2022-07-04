@@ -44,12 +44,14 @@ export class GameComponent implements OnInit {
         next: (response) => {
           this.game = response
           response.photos.map(
-            photo => this.sliderUrls.push(photo.url)
+            photo => {
+              if (photo.url) this.sliderUrls.push(photo.url)
+            }
           )
           response.videos.map(video => {
             const videoUrlTypes = ['/embed/', 'watch?v=']
             for (let i in videoUrlTypes) {
-              if (video.url.includes(videoUrlTypes[i])) {
+              if (video.url && video.url.includes(videoUrlTypes[i])) {
                 this.sliderUrls.push(video.url.split(videoUrlTypes[i])[1])
               }
             }
