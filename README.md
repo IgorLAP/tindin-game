@@ -1,5 +1,7 @@
 # 🎮 TINDIN GAME | Igor Pedrosa
 
+<img src="https://i.imgur.com/ze2eqO1.png" alt="tindin-game" title="tindin-game by Igor Pedrosa" />
+
 <details>
   <summary><h3>Índice</h3></summary>
   <ul style="list-style-type:disc">
@@ -68,14 +70,13 @@ na pasta em questão instale as dependências necessárias:
 
 após a instalação execute o comando a seguir para iniciar o servidor local:
 ```bash
- npm run dev or ng s 
+ npm start 'ou' ng serve
 ```
 
 a aplicação estará disponível no endereço:
 ```bash
  http://localhost:4200/
 ```
-
 
 <div id="deploy">
 
