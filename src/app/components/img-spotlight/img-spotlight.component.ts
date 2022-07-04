@@ -127,7 +127,7 @@ export class ImgSpotlightComponent implements OnInit {
         this.toast.error('For video use name GAMEPLAY, TRAILER or CUSTOM')
 
       } else {
-        this.toast.error('Invalid format', 'Error')
+        this.toast.error('Invalid format or provider', 'Error')
       }
     } else {
       this.toast.error('Name is required for media', 'Error')

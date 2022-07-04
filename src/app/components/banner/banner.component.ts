@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { takeWhile, timer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-banner',
@@ -16,9 +15,6 @@ export class BannerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    timer(0, 5000)
-      .pipe(takeWhile(() => this.aliveComponent))
-      .subscribe(() => this.handleGoRight())
   }
 
   ngOnDestroy(): void {

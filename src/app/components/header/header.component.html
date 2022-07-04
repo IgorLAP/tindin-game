@@ -6,7 +6,7 @@
     </a>
     <div class="searchArea" *ngIf="!isLogged">
       <input #searchInput type="text" placeholder="Search game here">
-      <button [routerLink]="['/search']" [queryParams]="{ q: searchInput.value }">Search</button>
+      <button (click)="handleSearch()">Search</button>
     </div>
     <a *ngIf="!isLogged" routerLink="/login" class="profileBtn">
       <img class="profileIcon" src="assets/utils/person.svg" alt="profile">
