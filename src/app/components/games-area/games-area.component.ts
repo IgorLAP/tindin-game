@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, AfterContentChecked, OnChanges, SimpleChanges, AfterViewChecked } from '@angular/core';
 import { Game } from 'src/app/interfaces/Game';
 
 @Component({

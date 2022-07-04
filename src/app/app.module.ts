@@ -24,6 +24,7 @@ import { GameListComponent } from './components/game-list/game-list.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
 import { SwiperModule } from 'swiper/angular'
 import { VimeModule } from '@vime/angular';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { VimeModule } from '@vime/angular';
     BreadCrumbComponent,
     ImgSpotlightComponent,
     SearchComponent,
-    GameListComponent
+    GameListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

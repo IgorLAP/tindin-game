@@ -31,6 +31,6 @@ export class AuthService {
   auth({ email, password }: { email: string, password: string }):
     Observable<AuthSuccessApiResponse> {
     return this.http.post<AuthSuccessApiResponse>
-      (`${this.baseApiURL}auth`, { email, password })
+      (`${this.baseApiURL}/auth`, { email, password })
   }
 }

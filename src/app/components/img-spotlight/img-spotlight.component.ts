@@ -1,6 +1,4 @@
 import {
-  AfterViewChecked,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -22,7 +20,7 @@ SwiperCore.use([Pagination, Navigation]);
   styleUrls: ['./img-spotlight.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
+export class ImgSpotlightComponent implements OnInit {
 
   @ViewChild('imgSpotlight') imgSpotlight!: ElementRef
   @ViewChild('marginChange') marginChange!: ElementRef
@@ -42,7 +40,6 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
   slidesPerView = 1
 
   constructor(
-    private cdr: ChangeDetectorRef,
     private toast: ToastrService,
   ) { }
 
@@ -62,11 +59,6 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
           this.slidesPerView = 1
         }
       })
-  }
-
-  ngAfterViewChecked(): void {
-    this.sliderWidth = this.sliderUrls ? `${this.sliderUrls.length * 180}px` : '0px'
-    this.cdr.detectChanges()
   }
 
   validateMedia(url: string) {
@@ -142,19 +134,15 @@ export class ImgSpotlightComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  changeImgSpotlight(url: string) {
-    const isImg = this.isImg(url)
-    if (isImg) {
-      this.imgSpotlight.nativeElement.src = url
-      this.inSpotlight = true
+  changeImgOnSpotlight(url: string | undefined) {
+    if (url) {
+      const isImg = this.isImg(url)
+      if (isImg) {
+        this.imgSpotlight.nativeElement.src = url
+        this.inSpotlight = true
+        return;
+      }
       return;
-    }
-    return;
-  }
-
-  putOnSpotlight() {
-    if (this.sliderUrls.length > 1) {
-      this.inSpotlight = true
     }
   }
 }

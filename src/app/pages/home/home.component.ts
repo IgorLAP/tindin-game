@@ -3,7 +3,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, ElementRef, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 
-import { gameExhibitionFormatter } from 'src/app/helpers/gameExhibitionFormatter';
 import { Game } from 'src/app/interfaces/Game';
 import { AuthService } from 'src/app/services/auth.service';
 import { GameService } from 'src/app/services/game.service';
@@ -20,33 +19,19 @@ export class HomeComponent implements OnInit, DoCheck {
   @ViewChild('searchInput') set inputRef(elRef: ElementRef<HTMLInputElement>) {
     if (elRef) {
       this.searchInputRef = elRef
-      fromEvent(this.searchInputRef.nativeElement, 'keyup')
-        .pipe(
-          filter(Boolean),
-          debounceTime(500),
-          distinctUntilChanged(),
-          tap(() => {
-            const query = this.searchInputRef.nativeElement.value
-            if (query) {
-              this.gameService.searchGame(query)
-                .subscribe(response => {
-                  this.searchList = response.map(game => gameExhibitionFormatter(game))
-                })
-            } else {
-              this.searchList = null
-            }
-          })
-        ).subscribe()
+      this.handleSearch()
     }
   }
   searchList!: Game[] | [] | null
   isLogged!: boolean
-  imagesBanner: { name: string, url: string }[] = [
-    { name: '', url: 'assets/banner0.jpg' }
+  imagesBanner: { name: string, url: string, _id: string }[] = [
+    { name: '', url: 'assets/banner0.jpg', _id: '' }
   ]
   actualSlide = 0
   gamesList!: Game[]
   hasMoreGames = false
+  onSearch = false
+  showGoUpBtn = false
 
   constructor(
     private gameService: GameService,
@@ -61,9 +46,9 @@ export class HomeComponent implements OnInit, DoCheck {
     this.spinner.show()
     this.gameService.listGames({})
       .subscribe({
-        next: (value) => {
+        next: (response) => {
           this.spinner.hide()
-          this.gamesList = value.games.map(game => gameExhibitionFormatter(game))
+          this.gamesList = response.games
         },
         error: (err) => {
           const { message, name } = returnGameRoutesError(err)
@@ -82,7 +67,8 @@ export class HomeComponent implements OnInit, DoCheck {
           if (Number(i) < 3) {
             this.imagesBanner.push({
               name: response.games[i].title,
-              url: response.games[i].photos[0].url
+              url: response.games[i].photos[0].url,
+              _id: response.games[i]._id
             })
           } else {
             break;
@@ -95,6 +81,8 @@ export class HomeComponent implements OnInit, DoCheck {
         this.spinner.hide()
       }
     })
+
+    this.setScrollEvent()
   }
 
   ngDoCheck(): void {
@@ -103,12 +91,49 @@ export class HomeComponent implements OnInit, DoCheck {
     }
   }
 
+  setScrollEvent() {
+    fromEvent(window, 'scroll')
+      .pipe(
+        filter(Boolean),
+        distinctUntilChanged(),
+      ).subscribe(() => {
+        if (window.scrollY > 300) this.showGoUpBtn = true
+        if (window.scrollY < 300) this.showGoUpBtn = false
+      })
+  }
+
+  handleGoUp() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }
+
+  handleSearch() {
+    fromEvent(this.searchInputRef.nativeElement, 'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(() => {
+          this.onSearch = true
+          const query = this.searchInputRef.nativeElement.value
+          if (query) {
+            this.gameService.searchGame(query)
+              .subscribe(response => {
+                this.searchList = response
+                this.onSearch = false
+              })
+          } else {
+            this.searchList = null
+            this.onSearch = false
+          }
+        })
+      ).subscribe()
+  }
+
   onViewMoreGames(event: { perPage: number, page: number }) {
     this.spinner.show()
     this.gameService.listGames({ paginationDetails: event })
       .subscribe(response => {
-        const formattedGame = response.games.map(game => gameExhibitionFormatter(game))
-        formattedGame.map(game => {
+        response.games.map(game => {
           return this.gamesList.push(game)
         })
         if (this.gamesList.length === response.totalSize) {

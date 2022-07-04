@@ -1,7 +1,9 @@
 <div class="bannerContainer">
   <div class="bannerList">
     <div class="image">
-      <h2>{{ imagesBanner[actualSlide]?.name }}</h2>
+      <a routerLink="/game/{{ imagesBanner[actualSlide]?._id }}">
+        <h2>{{ imagesBanner[actualSlide]?.name }}</h2>
+      </a>
       <img [src]="imagesBanner[actualSlide]?.url" alt="">
     </div>
   </div>

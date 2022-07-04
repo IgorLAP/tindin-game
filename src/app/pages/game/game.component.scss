@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   padding: 1rem;
 }
 
@@ -170,7 +170,7 @@ app-bread-crumb {
 
 .custom-select {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 1.4rem;
   margin-left: 1rem;
@@ -184,8 +184,14 @@ app-bread-crumb {
     border: 3px solid var(--red);
     color: var(--white);
 
+    &:focus>option:checked,
+    &:focus>option:hover {
+      background: var(--red);
+    }
+
     option {
       font-weight: 700;
+      font-size: 1rem;
     }
   }
 

@@ -48,8 +48,8 @@ form {
 
   .field {
     display: flex;
-    align-items: start;
-    justify-content: start;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-top: 1rem;
 
     &.checkbox-field label {
@@ -232,7 +232,7 @@ form {
     .field {
       display: flex;
       align-items: center;
-      justify-content: start;
+      justify-content: flex-start;
       margin-top: 1rem;
       flex-direction: column;
 

@@ -26,8 +26,10 @@
       <div class="moreDetails group">
         <div class="category">
           <p class="type">Genres: </p>
-          <p class="data" *ngFor="let genre of game.genres; index as i">{{ genre }}{{ game.genres![i + 1] ? ', ' : '' }}
+          <p class="data" *ngFor="let genre of game.genres; index as i">{{ genre }}{{
+            game.genres![i + 1] ? ', ' : '' }}
           </p>
+          <p *ngIf="!game.genres?.length" class="data">No genres provided</p>
         </div>
         <div class="category">
           <p class="type">Total votes: </p>
@@ -37,16 +39,22 @@
           <p class="type">Platforms: </p>
           <p class="data" *ngFor="let platform of game.platforms; index as i">{{ platform }}{{ game.platforms![i + 1] ?
             ', ' : '' }}</p>
+          <p *ngIf="!game.platforms?.length" class="data">No platforms provided</p>
         </div>
         <div class="category">
           <p class="type">Tags </p>
-          <p class="data" *ngFor="let tag of game.tags">#{{ tag }} </p>
+          <p class="data" *ngFor="let tag of game.tags">#{{ tag }}</p>
+          <p class="data" *ngIf="!game.tags?.length">No tags provided</p>
         </div>
       </div>
       <div class="priceArea group">
         <p class="mediumPrice">Medium Price</p>
         <p class="mediumValue">{{ game.mediumPrice | currency }}</p>
-        <p class="releaseDate">Release year: <time>{{ game.releaseYear }}</time></p>
+        <p class="mediumValue" *ngIf="!game.mediumPrice && game.mediumPrice !== 0">Not provided</p>
+        <p class="releaseDate">Release year:
+          <time>{{ game.releaseYear }}</time>
+          <span class="data" *ngIf="!game.releaseYear">Not provided</span>
+        </p>
         <div class="votingArea">
           <button class="voteNow"
             [swal]="{ title: 'Confirm Vote?', confirmButtonText: 'Yes', showDenyButton: true, denyButtonText: 'No', background: 'var(--background)', color: 'white', confirmButtonColor: 'green' }"

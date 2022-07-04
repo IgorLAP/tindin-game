@@ -47,7 +47,7 @@ export class GameService {
       }
     })
 
-    return this.http.get<ListGamesApiResponse>(`${this.baseApiURL}games`, { params })
+    return this.http.get<ListGamesApiResponse>(`${this.baseApiURL}/games`, { params })
       .pipe(
         first(),
       )
@@ -57,7 +57,7 @@ export class GameService {
     let token = this.cookie.get('auth.token')
     let headers = new HttpHeaders()
       .set('x-api-key', token)
-    return this.http.post<Game>(`${this.baseApiURL}games`, { ...game }, { headers })
+    return this.http.post<Game>(`${this.baseApiURL}/games`, { ...game }, { headers })
       .pipe(
         first()
       )
@@ -67,7 +67,7 @@ export class GameService {
     let token = this.cookie.get('auth.token')
     let headers = new HttpHeaders()
       .set('x-api-key', token)
-    return this.http.delete<Game>(`${this.baseApiURL}games/${gameId}`, { headers })
+    return this.http.delete<Game>(`${this.baseApiURL}/games/${gameId}`, { headers })
   }
 
   updateGame(updateFields: UpdateGameFields): Observable<Game> {
@@ -78,7 +78,7 @@ export class GameService {
   }
 
   searchGame(query: string): Observable<Game[] | []> {
-    return this.http.get<ListGamesApiResponse>(`${this.baseApiURL}games`)
+    return this.http.get<ListGamesApiResponse>(`${this.baseApiURL}/games`)
       .pipe(
         first(),
         map(response => {
@@ -90,7 +90,7 @@ export class GameService {
   }
 
   getGame(gameId: string): Observable<Game> {
-    return this.http.get<{ game: Game }>(`${this.baseApiURL}games/${gameId}`)
+    return this.http.get<{ game: Game }>(`${this.baseApiURL}/games/${gameId}`)
       .pipe(
         first(),
         map(response => response.game)
@@ -98,7 +98,7 @@ export class GameService {
   }
 
   rateGame(gameId: string, rate: number): Observable<RateGameApiResponse> {
-    return this.http.post<RateGameApiResponse>(`${this.baseApiURL}games/rate`, { gameId, rate })
+    return this.http.post<RateGameApiResponse>(`${this.baseApiURL}/games/rate`, { gameId, rate })
       .pipe(
         first()
       )
