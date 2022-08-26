@@ -7,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { returnGameRoutesError } from 'src/app/helpers/returnGameRoutesError';
 import { Genre } from 'src/app/interfaces/Genre';
 import { AuthService } from 'src/app/services/auth.service';
-
 import { GameService } from 'src/app/services/game.service';
 import { Platform } from '../../interfaces/Platform';
 
@@ -87,8 +86,6 @@ export class InsertEditGameComponent implements OnInit {
     private authService: AuthService,
     private activedRoute: ActivatedRoute
   ) {
-    this.isLogged = this.authService.isLogged
-    if (!this.isLogged) this.router.navigate(['/'])
     const id = this.activedRoute.snapshot.params['id']
     if (id) {
       this.spinner.show()
@@ -259,7 +256,7 @@ export class InsertEditGameComponent implements OnInit {
     this.router.navigate(['/'])
   }
 
-  keyPress(tag: string) {
+  addTag(tag: string) {
     this.tagInput.nativeElement.value = ''
     this.tags.push(tag)
   }
