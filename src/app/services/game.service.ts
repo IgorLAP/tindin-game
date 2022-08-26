@@ -54,27 +54,18 @@ export class GameService {
   }
 
   insertGame(game: Omit<Game, '_id'>): Observable<Game> {
-    let token = this.cookie.get('auth.token')
-    let headers = new HttpHeaders()
-      .set('x-api-key', token)
-    return this.http.post<Game>(`${this.baseApiURL}/games`, { ...game }, { headers })
+    return this.http.post<Game>(`${this.baseApiURL}/games`, { ...game })
       .pipe(
         first()
       )
   }
 
   deleteGame(gameId: string): Observable<Game> {
-    let token = this.cookie.get('auth.token')
-    let headers = new HttpHeaders()
-      .set('x-api-key', token)
-    return this.http.delete<Game>(`${this.baseApiURL}/games/${gameId}`, { headers })
+    return this.http.delete<Game>(`${this.baseApiURL}/games/${gameId}`)
   }
 
   updateGame(updateFields: UpdateGameFields): Observable<Game> {
-    let token = this.cookie.get('auth.token')
-    let headers = new HttpHeaders()
-      .set('x-api-key', token)
-    return this.http.put<Game>(`${this.baseApiURL}/games`, { ...updateFields }, { headers })
+    return this.http.put<Game>(`${this.baseApiURL}/games`, { ...updateFields })
   }
 
   searchGame(query: string): Observable<Game[] | []> {
