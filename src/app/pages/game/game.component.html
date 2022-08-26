@@ -6,7 +6,7 @@
       <div class="headLine group">
         <div class="presentation">
           <div class="ratingAndTitle">
-            <p class="rating">{{ game.rating }}/10</p>
+            <p class="rating">{{ game.rating | number:'1.0-1' }}/10</p>
             <h1 class="title">{{ game.title }}</h1>
           </div>
           <span class="resume">{{ game.resume }}</span>
