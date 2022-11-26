@@ -4,7 +4,7 @@
       <img [src]="game.photos[0]?.url ? game.photos[0].url : '/assets/utils/placeholder-poster.png'" alt="">
       <p class="title">{{ game.title }}</p>
       <p class="price">{{ game.mediumPrice ? (game.mediumPrice | currency ) : 'Price unavailable' }}</p>
-      <span>{{ game.rating }}/10</span>
+      <span>{{ game.rating | number:'1.0-1' }}/10</span>
     </div>
   </a>
 </div>

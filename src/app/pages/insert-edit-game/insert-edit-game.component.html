@@ -18,7 +18,7 @@
       <div *ngIf="!updateMode" class="field">
         <label for="tags">Tags: </label>
         <div class="tagContainer">
-          <input #tagInput (keydown.enter)="keyPress(tagInput.value)" placeholder="Type this game tags" type="text">
+          <input #tagInput (keydown.enter)="addTag(tagInput.value)" placeholder="Type this game tags" type="text">
           <div class="savedTags" *ngIf="tags.length > 0">
             <p (click)="removeTag(item)" class="tag" *ngFor="let item of tags">{{ item }}</p>
           </div>
